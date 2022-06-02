@@ -1,0 +1,2724 @@
+"use strict";
+(() => {
+    var an = Object.defineProperty;
+    var s = (P, q) => an(P, "name", {
+        value: q,
+        configurable: !0
+    });
+    (globalThis.webpackChunk = globalThis.webpackChunk || []).push([
+        ["projects"], {
+            78784: (P, q, f) => {
+                f.d(q, {
+                    O4: () => H,
+                    jo: () => D,
+                    Qp: () => E
+                });
+                var b = f(47458),
+                    u = f(59753);
+                const y = "ontransitionend" in window;
+
+                function L(h, j) {
+                    if (!y) {
+                        j();
+                        return
+                    }
+                    const v = Array.from(h.querySelectorAll(".js-transitionable"));
+                    h.classList.contains("js-transitionable") && v.push(h);
+                    for (const C of v) {
+                        const B = w(C);
+                        C instanceof HTMLElement && (C.addEventListener("transitionend", () => {
+                            C.style.display = "", C.style.visibility = "", B && T(C, function() {
+                                C.style.height = ""
+                            })
+                        }, {
+                            once: !0
+                        }), C.style.boxSizing = "content-box", C.style.display = "block", C.style.visibility = "visible", B && T(C, function() {
+                            C.style.height = getComputedStyle(C).height
+                        }), C.offsetHeight)
+                    }
+                    j();
+                    for (const C of v)
+                        if (C instanceof HTMLElement && w(C)) {
+                            const B = getComputedStyle(C).height;
+                            C.style.boxSizing = "", B === "0px" ? C.style.height = `${C.scrollHeight}px` : C.style.height = "0px"
+                        }
+                }
+                s(L, "performTransition");
+
+                function w(h) {
+                    return getComputedStyle(h).transitionProperty === "height"
+                }
+                s(w, "isTransitioningHeight");
+
+                function T(h, j) {
+                    h.style.transition = "none", j(), h.offsetHeight, h.style.transition = ""
+                }
+                s(T, "withoutTransition");
+                var A = f(96776);
+
+                function S(h, j) {
+                    j.find(v => {
+                        const C = h.querySelectorAll(v),
+                            B = C[C.length - 1];
+                        if (B && document.activeElement !== B) return B.focus(), !0
+                    })
+                }
+                s(S, "findAndFocusByQuerySelector");
+
+                function a(h) {
+                    S(h, [".js-focus-on-dismiss", "input[autofocus], textarea[autofocus]"])
+                }
+                s(a, "restoreAutofocus");
+
+                function l(h) {
+                    !h.classList.contains("tooltipped") || (h.classList.remove("tooltipped"), h.addEventListener("mouseleave", () => {
+                        h.classList.add("tooltipped"), h.blur()
+                    }, {
+                        once: !0
+                    }))
+                }
+                s(l, "hideTooltip");
+
+                function m(h) {
+                    return [...document.querySelectorAll(".js-details-container")].filter(j => j.getAttribute("data-details-container-group") === h)
+                }
+                s(m, "groupMembers");
+
+                function k(h) {
+                    return [...h.querySelectorAll(".js-details-target")].filter(j => j.closest(".js-details-container") === h)
+                }
+                s(k, "containerTargets");
+
+                function F(h, j) {
+                    const v = h.getAttribute("data-details-container-group");
+                    return v ? ((0, A.uQ)(h, () => {
+                        for (const C of m(v)) C !== h && p(C, j)
+                    }), v) : null
+                }
+                s(F, "toggleGroup");
+
+                function p(h, j) {
+                    h.classList.toggle("open", j), h.classList.toggle("Details--on", j);
+                    for (const v of k(h)) v.setAttribute("aria-expanded", j.toString())
+                }
+                s(p, "updateOpenState");
+
+                function E(h, j) {
+                    var v, C;
+                    const B = h.getAttribute("data-details-container") || ".js-details-container",
+                        U = h.closest(B),
+                        X = (v = j == null ? void 0 : j.force) != null ? v : !U.classList.contains("open"),
+                        de = (C = j == null ? void 0 : j.withGroup) != null ? C : !1;
+                    L(U, () => {
+                        p(U, X);
+                        const J = de ? F(U, X) : null;
+                        Promise.resolve().then(() => {
+                            a(U), l(h), U.dispatchEvent(new CustomEvent("details:toggled", {
+                                bubbles: !0,
+                                cancelable: !1,
+                                detail: {
+                                    open: X
+                                }
+                            })), J && U.dispatchEvent(new CustomEvent("details:toggled-group", {
+                                bubbles: !0,
+                                cancelable: !1,
+                                detail: {
+                                    open: X,
+                                    group: J
+                                }
+                            }))
+                        })
+                    })
+                }
+                s(E, "toggleDetailsTarget");
+
+                function D(h) {
+                    const j = h.getAttribute("data-details-container") || ".js-details-container",
+                        C = h.closest(j).classList;
+                    return C.contains("Details--on") || C.contains("open")
+                }
+                s(D, "isDetailsTargetExpanded");
+
+                function x(h) {
+                    const j = h.altKey,
+                        v = h.currentTarget;
+                    E(v, {
+                        withGroup: j
+                    }), h.preventDefault()
+                }
+                s(x, "handleDetailsTargetClick"), (0, u.on)("click", ".js-details-target", x), (0, b.Z)(function({
+                    target: h
+                }) {
+                    h && H(h)
+                });
+
+                function H(h) {
+                    let j = !1,
+                        v = h.parentElement;
+                    for (; v;) v.classList.contains("Details-content--shown") && (j = !0), v.classList.contains("js-details-container") && (v.classList.toggle("open", !j), v.classList.toggle("Details--on", !j), j = !1), v = v.parentElement
+                }
+                s(H, "ensureExpanded")
+            },
+            47458: (P, q, f) => {
+                f.d(q, {
+                    Z: () => L
+                });
+                var b = f(75488);
+                const u = [];
+                let y = 0;
+
+                function L(a) {
+                    (async function() {
+                        u.push(a), await b.x, w()
+                    })()
+                }
+                s(L, "hashChange"), L.clear = () => {
+                    u.length = y = 0
+                };
+
+                function w() {
+                    const a = y;
+                    y = u.length, T(u.slice(a), null, window.location.href)
+                }
+                s(w, "runRemainingHandlers");
+
+                function T(a, l, m) {
+                    const k = window.location.hash.slice(1),
+                        F = k ? document.getElementById(k) : null,
+                        p = {
+                            oldURL: l,
+                            newURL: m,
+                            target: F
+                        };
+                    for (const E of a) E.call(null, p)
+                }
+                s(T, "runHandlers");
+                let A = window.location.href;
+                window.addEventListener("popstate", function() {
+                    A = window.location.href
+                }), window.addEventListener("hashchange", function(a) {
+                    const l = window.location.href;
+                    try {
+                        T(u, a.oldURL || A, l)
+                    } finally {
+                        A = l
+                    }
+                });
+                let S = null;
+                document.addEventListener("pjax:start", function() {
+                    S = window.location.href
+                }), document.addEventListener("pjax:end", function() {
+                    T(u, S, window.location.href)
+                })
+            },
+            75488: (P, q, f) => {
+                f.d(q, {
+                    C: () => u,
+                    x: () => b
+                });
+                const b = function() {
+                        return document.readyState === "interactive" || document.readyState === "complete" ? Promise.resolve() : new Promise(y => {
+                            document.addEventListener("DOMContentLoaded", () => {
+                                y()
+                            })
+                        })
+                    }(),
+                    u = function() {
+                        return document.readyState === "complete" ? Promise.resolve() : new Promise(y => {
+                            window.addEventListener("load", y)
+                        })
+                    }()
+            },
+            81302: (P, q, f) => {
+                f.d(q, {
+                    Dc: () => L,
+                    bP: () => A,
+                    g: () => T,
+                    gJ: () => b,
+                    rs: () => u
+                });
+
+                function b() {
+                    return Promise.resolve()
+                }
+                s(b, "microtask");
+
+                function u() {
+                    return new Promise(window.requestAnimationFrame)
+                }
+                s(u, "animationFrame");
+                async function y(S, a) {
+                    let l;
+                    const m = new Promise((k, F) => {
+                        l = self.setTimeout(() => F(new Error("timeout")), S)
+                    });
+                    if (!a) return m;
+                    try {
+                        await Promise.race([m, w(a)])
+                    } catch (k) {
+                        throw self.clearTimeout(l), k
+                    }
+                }
+                s(y, "timeout");
+                async function L(S, a) {
+                    let l;
+                    const m = new Promise(k => {
+                        l = self.setTimeout(k, S)
+                    });
+                    if (!a) return m;
+                    try {
+                        await Promise.race([m, w(a)])
+                    } catch (k) {
+                        throw self.clearTimeout(l), k
+                    }
+                }
+                s(L, "wait");
+
+                function w(S) {
+                    return new Promise((a, l) => {
+                        const m = new Error("aborted");
+                        m.name = "AbortError", S.aborted ? l(m) : S.addEventListener("abort", () => l(m))
+                    })
+                }
+                s(w, "whenAborted");
+
+                function T(S) {
+                    const a = [];
+                    return function(l) {
+                        a.push(l), a.length === 1 && queueMicrotask(() => {
+                            const m = [...a];
+                            a.length = 0, S(m)
+                        })
+                    }
+                }
+                s(T, "taskQueue");
+                async function A(S) {
+                    requestAnimationFrame(() => {
+                        setTimeout(S)
+                    })
+                }
+                s(A, "afterNextPaint")
+            },
+            98016: (P, q, f) => {
+                f.d(q, {
+                    Mw: () => F,
+                    _C: () => k,
+                    lO: () => m,
+                    qA: () => l,
+                    y0: () => L
+                });
+                const b = [];
+                let u = 0,
+                    y;
+
+                function L() {
+                    return y
+                }
+                s(L, "getState");
+
+                function w() {
+                    try {
+                        return Math.min(Math.max(0, history.length) || 0, 9007199254740991)
+                    } catch {
+                        return 0
+                    }
+                }
+                s(w, "safeGetHistory");
+
+                function T() {
+                    const p = {
+                        _id: new Date().getTime(),
+                        ...history.state
+                    };
+                    return S(p), p
+                }
+                s(T, "initializeState");
+
+                function A() {
+                    return w() - 1 + u
+                }
+                s(A, "position");
+
+                function S(p) {
+                    y = p;
+                    const E = location.href;
+                    b[A()] = {
+                        url: E,
+                        state: y
+                    }, b.length = w(), window.dispatchEvent(new CustomEvent("statechange", {
+                        bubbles: !1,
+                        cancelable: !1
+                    }))
+                }
+                s(S, "setState");
+
+                function a() {
+                    return new Date().getTime()
+                }
+                s(a, "uniqueId");
+
+                function l(p, E, D) {
+                    u = 0;
+                    const x = {
+                        _id: a(),
+                        ...p
+                    };
+                    history.pushState(x, E, D), S(x)
+                }
+                s(l, "pushState");
+
+                function m(p, E, D) {
+                    const x = {
+                        ...L(),
+                        ...p
+                    };
+                    history.replaceState(x, E, D), S(x)
+                }
+                s(m, "replaceState");
+
+                function k() {
+                    const p = b[A() - 1];
+                    if (p) return p.url
+                }
+                s(k, "getBackURL");
+
+                function F() {
+                    const p = b[A() + 1];
+                    if (p) return p.url
+                }
+                s(F, "getForwardURL"), y = T(), window.addEventListener("popstate", s(function(E) {
+                    var D, x, H, h, j;
+                    const v = E.state;
+                    if (!(!v || !v._id && !((D = v.turbo) == null ? void 0 : D.restorationIdentifier))) {
+                        if ((x = v.turbo) == null ? void 0 : x.restorationIdentifier) {
+                            const C = v.turbo.restorationIdentifier;
+                            ((j = (h = (H = b[A() - 1]) == null ? void 0 : H.state) == null ? void 0 : h.turbo) == null ? void 0 : j.restorationIdentifier) === C ? u-- : u++
+                        } else v._id < (L()._id || NaN) ? u-- : u++;
+                        S(v)
+                    }
+                }, "onPopstate"), !0), window.addEventListener("turbo:visit", p => {
+                    p instanceof CustomEvent && p.detail.action !== "restore" && (u = 0, m(history.state, "", p.detail.url))
+                }), window.addEventListener("turbo:load", () => {
+                    m(history.state, "", "")
+                }, {
+                    once: !0
+                }), window.addEventListener("hashchange", s(function() {
+                    if (w() > b.length) {
+                        const E = {
+                            _id: a()
+                        };
+                        history.replaceState(E, "", location.href), S(E)
+                    }
+                }, "onHashchange"), !0)
+            },
+            5628: (P, q, f) => {
+                var b = f(59753);
+                (0, b.on)("details-menu-selected", ".js-sync-select-menu-icon", function(u) {
+                    const y = document.querySelector(".js-sync-select-menu-icon-completed"),
+                        L = document.querySelector(".js-sync-select-menu-icon-canceled"),
+                        w = u.detail.relatedTarget.querySelector('input[name="state_reason"]');
+                    (w ? w.value : null) === "not_planned" ? (y.style.display = "none", L.style.display = "inline-block") : (y.style.display = "inline-block", L.style.display = "none")
+                }, {
+                    capture: !0
+                })
+            },
+            5638: (P, q, f) => {
+                f.d(q, {
+                    r: () => b
+                });
+
+                function b(u, y) {
+                    const L = u.createElement("template");
+                    return L.innerHTML = y, u.importNode(L.content, !0)
+                }
+                s(b, "parseHTML")
+            },
+            70290: (P, q, f) => {
+                f.d(q, {
+                    Z: () => b
+                });
+
+                function b(u) {
+                    var y, L;
+                    const w = (L = (y = u.head) == null ? void 0 : y.querySelector('meta[name="expected-hostname"]')) == null ? void 0 : L.content;
+                    if (!w) return !1;
+                    const T = w.replace(/\.$/, "").split(".").slice(-2).join("."),
+                        A = u.location.hostname.replace(/\.$/, "").split(".").slice(-2).join(".");
+                    return T !== A
+                }
+                s(b, "detectProxySite")
+            },
+            77552: (P, q, f) => {
+                f.d(q, {
+                    b: () => L
+                });
+                var b = f(70290),
+                    u = f(75488);
+                let y = [];
+
+                function L(a, l = !1) {
+                    a.timestamp === void 0 && (a.timestamp = new Date().getTime()), a.loggedIn = S(), y.push(a), l ? A() : T()
+                }
+                s(L, "sendStats");
+                let w = null;
+                async function T() {
+                    await u.C, w == null && (w = window.requestIdleCallback(A))
+                }
+                s(T, "scheduleSendStats");
+
+                function A() {
+                    var a, l;
+                    if (w = null, !y.length || (0, b.Z)(document)) return;
+                    const m = (l = (a = document.head) == null ? void 0 : a.querySelector('meta[name="browser-stats-url"]')) == null ? void 0 : l.content;
+                    if (!m) return;
+                    const k = JSON.stringify({
+                        stats: y
+                    });
+                    try {
+                        navigator.sendBeacon && navigator.sendBeacon(m, k)
+                    } catch {}
+                    y = []
+                }
+                s(A, "flushStats");
+
+                function S() {
+                    var a, l;
+                    return !!((l = (a = document.head) == null ? void 0 : a.querySelector('meta[name="user-login"]')) == null ? void 0 : l.content)
+                }
+                s(S, "isLoggedIn"), document.addEventListener("pagehide", A), document.addEventListener("visibilitychange", A)
+            },
+            10174: (P, q, f) => {
+                f.d(q, {
+                    dY: () => S,
+                    iU: () => A,
+                    oq: () => T
+                });
+                const b = new WeakMap;
+
+                function u(a) {
+                    const l = b.get(a);
+                    !l || (l.timer != null && clearTimeout(l.timer), l.timer = window.setTimeout(() => {
+                        l.timer != null && (l.timer = null), l.inputed = !1, l.listener.call(null, a)
+                    }, l.wait))
+                }
+                s(u, "schedule");
+
+                function y(a) {
+                    const l = a.currentTarget,
+                        m = b.get(l);
+                    !m || (m.keypressed = !0, m.timer != null && clearTimeout(m.timer))
+                }
+                s(y, "onKeydownInput");
+
+                function L(a) {
+                    const l = a.currentTarget,
+                        m = b.get(l);
+                    !m || (m.keypressed = !1, m.inputed && u(l))
+                }
+                s(L, "onKeyupInput");
+
+                function w(a) {
+                    const l = a.currentTarget,
+                        m = b.get(l);
+                    !m || (m.inputed = !0, m.keypressed || u(l))
+                }
+                s(w, "onInputInput");
+
+                function T(a, l, m = {
+                    wait: null
+                }) {
+                    b.set(a, {
+                        keypressed: !1,
+                        inputed: !1,
+                        timer: void 0,
+                        listener: l,
+                        wait: m.wait != null ? m.wait : 100
+                    }), a.addEventListener("keydown", y), a.addEventListener("keyup", L), a.addEventListener("input", w)
+                }
+                s(T, "addThrottledInputEventListener");
+
+                function A(a, l) {
+                    a.removeEventListener("keydown", y), a.removeEventListener("keyup", L), a.removeEventListener("input", w);
+                    const m = b.get(a);
+                    m && (m.timer != null && m.listener === l && clearTimeout(m.timer), b.delete(a))
+                }
+                s(A, "removeThrottledInputEventListener");
+
+                function S(a) {
+                    const l = b.get(a);
+                    l && l.listener.call(null, a)
+                }
+                s(S, "dispatchThrottledInputEvent")
+            },
+            34692: (P, q, f) => {
+                f.d(q, {
+                    H5: () => S,
+                    Of: () => m,
+                    x0: () => l,
+                    z8: () => a
+                });
+                var b = f(10795),
+                    u = f(64463),
+                    y = f(5638),
+                    L = f(96776),
+                    w = f(98016);
+                const T = new WeakMap,
+                    A = {};
+
+                function S() {
+                    for (const E of Object.keys(A)) delete A[E];
+                    const p = history.state || {};
+                    p.staleRecords = A, (0, w.lO)(p, "", location.href), window.location.reload()
+                }
+                s(S, "reload");
+
+                function a() {
+                    if (Object.keys(A).length > 0) {
+                        const p = history.state || {};
+                        p.staleRecords = A, (0, w.lO)(p, "", location.href)
+                    }
+                }
+                s(a, "registerStaleRecords");
+                async function l(p) {
+                    if (T.get(p)) return;
+                    const E = p.hasAttribute("data-retain-focus"),
+                        D = p.getAttribute("data-url");
+                    if (!D) throw new Error("could not get url");
+                    const x = new AbortController;
+                    T.set(p, x);
+                    try {
+                        const H = await fetch(D, {
+                            signal: x.signal,
+                            headers: {
+                                Accept: "text/html",
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
+                        });
+                        if (!H.ok) return;
+                        const h = await H.text();
+                        if ((0, b.M)(p, E)) {
+                            console.warn("Failed to update content with interactions", p);
+                            return
+                        }
+                        return A[D] = h, k(p, h, E)
+                    } catch {} finally {
+                        T.delete(p)
+                    }
+                }
+                s(l, "updateContent");
+                async function m(p, E, D = !1) {
+                    const x = T.get(p);
+                    x == null || x.abort();
+                    const H = p.closest(".js-updatable-content[data-url], .js-updatable-content [data-url]");
+                    return !D && H && H === p && (A[H.getAttribute("data-url") || ""] = E), k(p, E)
+                }
+                s(m, "replaceContent");
+
+                function k(p, E, D = !1) {
+                    return (0, L._8)(document, () => {
+                        const x = (0, y.r)(document, E.trim()),
+                            H = D && p.ownerDocument && p === p.ownerDocument.activeElement ? x.querySelector("*") : null,
+                            h = Array.from(p.querySelectorAll("details[open][id]")).map(j => j.id);
+                        p.tagName === "DETAILS" && p.id && p.hasAttribute("open") && h.push(p.id);
+                        for (const j of p.querySelectorAll(".js-updatable-content-preserve-scroll-position")) {
+                            const v = j.getAttribute("data-updatable-content-scroll-position-id") || "";
+                            F.set(v, j.scrollTop)
+                        }
+                        for (const j of h) {
+                            const v = x.querySelector(`#${j}`);
+                            v && v.setAttribute("open", "")
+                        }
+                        p.replaceWith(x), H instanceof HTMLElement && H.focus()
+                    })
+                }
+                s(k, "replace");
+                const F = new Map;
+                (0, u.N7)(".js-updatable-content-preserve-scroll-position", {
+                    constructor: HTMLElement,
+                    add(p) {
+                        const E = p.getAttribute("data-updatable-content-scroll-position-id");
+                        if (!E) return;
+                        const D = F.get(E);
+                        D != null && (p.scrollTop = D)
+                    }
+                })
+            },
+            69640: (P, q, f) => {
+                var b = f(5628),
+                    u = f(59753),
+                    y = f(78784);
+                (0, u.on)("submit", ".js-project-name-update", async function(e) {
+                    var t;
+                    const n = e.currentTarget,
+                        o = n.closest(".js-details-container");
+                    e.preventDefault();
+                    let r, c;
+                    try {
+                        r = await fetch(n.action, {
+                            method: n.method,
+                            body: new FormData(n),
+                            headers: {
+                                Accept: "application/json",
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
+                        }), c = await r.json()
+                    } catch {}
+                    if (r && !r.ok) {
+                        const i = n.querySelector(".js-project-form-group"),
+                            d = o.querySelector(".js-project-form-error"),
+                            g = n.getAttribute("data-fallback-error-message");
+                        d && (d.textContent = ((t = c.errors) == null ? void 0 : t[0]) || g), i && i.classList.add("errored")
+                    } else if (c) {
+                        o.querySelector(".js-project-name-label").textContent = c.project_name, (0, y.Qp)(o, {
+                            force: !1
+                        });
+                        const i = o.querySelector(".js-project-hovercard");
+                        if (i) {
+                            const d = i.getAttribute("data-hovercard-url"),
+                                g = /\?ts=(.+)$/;
+                            (d == null ? void 0 : d.match(g)) && i.setAttribute("data-hovercard-url", d.replace(g, `?ts=${Date.now()}`))
+                        }
+                    }
+                    L(n), (0, u.f)(n, "deprecatedAjaxComplete")
+                });
+
+                function L(e) {
+                    for (const t of e.elements)(t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement) && (t.defaultValue = t.value)
+                }
+                s(L, "resetDefaultFormValues");
+                var w = f(81302);
+
+                function T(e) {
+                    const t = new WeakMap;
+                    for (const n of e) t.set(n, n.getBoundingClientRect());
+                    return t
+                }
+                s(T, "recordPositions");
+                async function A(e, t, n, o = 500) {
+                    const r = t.get(e),
+                        c = n.get(e),
+                        i = r.left - c.left,
+                        d = r.top - c.top;
+                    i === 0 && d === 0 || (await (0, w.rs)(), e.style.transform = `translateZ(0) translate(${i}px, ${d}px)`, e.style.transition = "transform 0s", await (0, w.rs)(), e.style.transform = "", e.style.transition = `transform ${o}ms`, await new Promise(g => e.addEventListener("transitionend", g, {
+                        once: !0
+                    })), e.style.transition = "")
+                }
+                s(A, "invertPosition");
+
+                function S(e, t, n = 500) {
+                    const o = T(e),
+                        r = [];
+                    for (const c of e) r.push(A(c, t, o, n));
+                    return Promise.all(r)
+                }
+                s(S, "animate");
+                var a = f(27034),
+                    l = f(46263);
+                let m;
+
+                function k(e) {
+                    if (!e) return;
+                    m && clearTimeout(m);
+                    const t = document.querySelector(".js-project-updated-message");
+                    t.textContent = e, t.classList.remove("d-none"), m = window.setTimeout(function() {
+                        t.textContent = "", t.classList.add("d-none")
+                    }, 3e3)
+                }
+                s(k, "displayUpdateMessage");
+
+                function F(e, t) {
+                    const n = `column-${e.id}`,
+                        o = document.getElementById(n);
+                    if (o) return o; {
+                        const r = new a.Z;
+                        return r.id = n, r.src = `${t}/${e.id}`, r
+                    }
+                }
+                s(F, "getColumn");
+
+                function p(e, t) {
+                    const n = `card-${e}`,
+                        o = document.getElementById(n);
+                    if (o) return o; {
+                        const r = new a.Z;
+                        return r.id = n, r.src = `${t}/${e}`, r.onerror = function() {
+                            r.remove()
+                        }, r
+                    }
+                }
+                s(p, "getCard");
+
+                function E(e, t) {
+                    const o = Array.from(e.querySelectorAll(".js-project-column")).map(c => c.getAttribute("data-id"));
+                    return t.columns.map(c => String(c.id)).join(",") !== o.join(",")
+                }
+                s(E, "shouldUpdateColumns");
+
+                function D(e, t) {
+                    const n = t.querySelector(".js-project-column-automation-footer");
+                    if (!n) return;
+                    const o = n.querySelector(".js-project-column-automation-summary");
+                    e.automation_summary && e.purpose ? (o.textContent = e.purpose, o.setAttribute("aria-label", e.automation_summary), n.classList.remove("d-none")) : n.classList.add("d-none")
+                }
+                s(D, "updateColumnAutomation");
+
+                function x(e, t, n, o) {
+                    e.setAttribute("data-column-id", t), e.setAttribute("data-column-name", n), e.href = `#column-${t}`, e.querySelector(".js-column-nav-name").textContent = n;
+                    const r = e.querySelector(".js-column-nav-card-count");
+                    r && (r.textContent = o, r.setAttribute("aria-label", `Contains ${o} ${Number(o)===1?"item":"items"}`))
+                }
+                s(x, "populateColumnNav");
+
+                function H(e, t, n, o, r, c) {
+                    const i = e.content.cloneNode(!0),
+                        d = i.querySelector(".js-project-column-navigation-item");
+                    d.classList.toggle("selected", c), x(d, n, o, r);
+                    const g = t.querySelectorAll(".js-project-column-navigation-item").length + 1;
+                    i.querySelector(".js-column-nav-index").textContent = g.toString(), t.appendChild(i)
+                }
+                s(H, "createColumnNav");
+
+                function h(e) {
+                    for (const t of document.querySelectorAll(".js-project-column-navigation-item"))
+                        if (e === t.getAttribute("data-column-id")) {
+                            t.remove();
+                            return
+                        }
+                }
+                s(h, "deleteColumnNav");
+
+                function j(e) {
+                    const t = document.querySelector(".js-project-column-nav");
+                    if (!t) return;
+                    const n = t.querySelector(".js-column-nav-template"),
+                        o = e.getAttribute("data-id") || "",
+                        r = e.querySelector(".js-project-column-name").textContent,
+                        c = e.querySelector(".js-column-card-count").textContent;
+                    H(n, t, o, r, c, !0)
+                }
+                s(j, "addColumnNav");
+
+                function v(e) {
+                    const t = e.getAttribute("data-id");
+                    if (!t) return;
+                    const n = document.querySelector(`.js-project-column-navigation-item[data-column-id="${t}"]`);
+                    if (n instanceof HTMLAnchorElement) {
+                        const o = e.querySelector(".js-project-column-name").textContent,
+                            r = e.querySelector(".js-column-card-count").textContent;
+                        x(n, t, o, r)
+                    }
+                }
+                s(v, "updateColumnNav");
+
+                function C(e) {
+                    const t = document.querySelector(".js-project-column-nav");
+                    if (!t) return;
+                    const n = t.querySelector(".js-column-nav-template"),
+                        o = t.scrollLeft;
+                    let r;
+                    for (const c of document.querySelectorAll(".js-project-column-navigation-item")) c.remove(), c.classList.contains("selected") && (r = c.getAttribute("data-column-id"));
+                    for (const c of e) H(n, t, c.id.toString(), c.name, c.card_ids.length.toString(), r === c.id.toString());
+                    t.scrollLeft = o
+                }
+                s(C, "rebuildColumnNav");
+
+                function B(e, t, n) {
+                    const o = document.createDocumentFragment();
+                    for (const r of t) o.appendChild(n[r]);
+                    e.innerHTML = "", e.appendChild(o)
+                }
+                s(B, "replaceCardsInContainer");
+                async function U(e, t) {
+                    k(t.message);
+                    const n = e.querySelectorAll(".js-project-column"),
+                        o = T(n),
+                        r = e.getAttribute("data-url") || "",
+                        c = e.getAttribute("data-columns-url") || "",
+                        i = e.getAttribute("data-cards-url") || "";
+                    let d = t.state;
+                    if (!d) {
+                        const R = await fetch(r, {
+                            headers: {
+                                Accept: "application/json",
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
+                        });
+                        if (!R.ok) return;
+                        d = await R.json()
+                    }(0, u.f)(e, "will-update-project", d);
+                    const g = document.activeElement;
+                    if (E(e, d)) {
+                        (0, u.f)(e, "will-update-project-columns");
+                        const R = {},
+                            N = document.createDocumentFragment();
+                        for (const z of d.columns) {
+                            const V = F(z, c),
+                                ke = V.querySelector(".js-project-column-cards");
+                            ke && (R[ke.id] = ke.scrollTop), N.appendChild(V)
+                        }
+                        const Q = e.querySelector(".js-new-project-column-container");
+                        Q && Q.remove();
+                        const Y = e.querySelector(".js-new-column-blankslate");
+                        Y.remove(), e.innerHTML = "", e.appendChild(N), Q && (e.appendChild(Q), Q.querySelector(".js-new-column-button").classList.toggle("d-none", d.columns.length === 0)), e.appendChild(Y), Y.classList.toggle("d-none", d.columns.length > 0), C(d.columns);
+                        for (const z in R) {
+                            const V = document.getElementById(z);
+                            V.scrollTop = R[z]
+                        }
+                        await S(n, o)
+                    }
+                    const M = e.querySelectorAll(".js-project-column-card"),
+                        I = T(M),
+                        W = {};
+                    for (const R of d.columns)
+                        for (const N of R.card_ids) W[N] = p(N.toString(), i);
+                    for (const R of d.columns) {
+                        const N = document.getElementById(`column-${R.id}`);
+                        if (!N || N.tagName === "INCLUDE-FRAGMENT") return;
+                        const Q = N.querySelector(".js-project-column-name");
+                        if (Q) {
+                            Q.textContent = R.name;
+                            const V = N.querySelector(".js-project-column-name-field");
+                            V instanceof HTMLInputElement && (V.value = R.name, V.setAttribute("value", R.name))
+                        }
+                        const Y = N.querySelector(".js-column-card-count");
+                        Y && (Y.textContent = R.card_ids.length.toString()), D(R, N);
+                        const z = N.querySelector(".js-project-column-cards");
+                        B(z, R.card_ids, W)
+                    }(0, u.f)(e, "update-project"), await S(M, I), g && document.activeElement !== g && g.focus()
+                }
+                s(U, "_updateProject");
+                const X = (0, l.D)(U, 100);
+
+                function de(e) {
+                    for (const t of e.columns) {
+                        const n = document.getElementById(`column-${t.id}`);
+                        n && D(t, n)
+                    }
+                }
+                s(de, "updateProjectColumnAutomation");
+                var J = f(10174),
+                    me = f(65935),
+                    fe = f(98016);
+                const pe = "is",
+                    he = "linked",
+                    xe = "title",
+                    at = ["assignee", "author", pe, "label", "milestone", "repo", "review", "state", "status", "type", he],
+                    De = {
+                        pr: "issue"
+                    },
+                    lt = ["issue", "pr", "note"],
+                    ut = ["assignee", "label", "milestone"],
+                    dt = /[^\s:]+:("(?:\\"|.)*?"|[^\s]*)|[^\s]+/g;
+
+                function re(e, t) {
+                    let n = e[t];
+                    return n || (n = {
+                        tokenFilters: [],
+                        matchIfMissing: !1
+                    }, e[t] = n), n
+                }
+                s(re, "getOrCreateQualifierFilter");
+
+                function ge(e, t, n) {
+                    const o = e.tokenFilters.find(r => r.token === t);
+                    o ? o.negated = n : e.tokenFilters.push({
+                        token: t,
+                        negated: n
+                    }), e.matchIfMissing = !1
+                }
+                s(ge, "addToken");
+
+                function mt(e, t) {
+                    return Me(e)[t] != null
+                }
+                s(mt, "queryContainsQualifier");
+
+                function Ie(e, t) {
+                    const n = `^-?${t}:\\s*"?(.*?)"?\\s*$`;
+                    return e.replace(new RegExp(n), "$1").replace(/\\(")/g, "$1").toLowerCase()
+                }
+                s(Ie, "getQueryTokenValue");
+
+                function Me(e) {
+                    const t = e.match(dt) || [],
+                        n = {};
+                    for (const o of t) {
+                        const r = at.find(c => o.match(new RegExp(`^-?${c}:.*`)));
+                        if (r) {
+                            const c = Ie(o, r);
+                            if (c.length > 0) {
+                                const i = re(n, r),
+                                    d = o.startsWith("-");
+                                if (ge(i, c, d), r !== he) continue;
+                                const g = De[c];
+                                if (g && !s(I => I.some(W => {
+                                        const R = Ie(W, pe);
+                                        return W !== R && lt.includes(R)
+                                    }), "hasTypeFilter")(t)) {
+                                    const I = re(n, pe);
+                                    ge(I, g, !1)
+                                }
+                            }
+                        } else {
+                            const c = ut.find(i => o === `no:${i}`);
+                            if (c) re(n, c).matchIfMissing = !0;
+                            else if (o.length > 0) {
+                                const i = re(n, xe);
+                                ge(i, o, !1)
+                            }
+                        }
+                    }
+                    return n
+                }
+                s(Me, "parseCardFilterQuery");
+                let Pe, Re;
+
+                function je() {
+                    var e;
+                    return ((e = document.querySelector(".js-card-filter-input")) == null ? void 0 : e.value.trim().toLowerCase()) || ""
+                }
+                s(je, "getQueryText");
+
+                function ft() {
+                    const e = je();
+                    return Re !== e && (Re = e, Pe = Me(e)), Pe
+                }
+                s(ft, "getFilterQuery");
+
+                function He(e, t) {
+                    for (const n in t) {
+                        const o = e.getAttribute(`data-card-${n}`) || "";
+                        let r = [];
+                        o.trim() !== "" && (r = JSON.parse(o));
+                        const c = t[n];
+                        if (c.matchIfMissing) {
+                            if (r.length > 0) return !1
+                        } else
+                            for (const i of c.tokenFilters)
+                                if (n === xe) {
+                                    if (!pt(i.token, r)) return !1
+                                } else {
+                                    if (n === he && !De[i.token]) return !1;
+                                    const d = ht(i.token, r);
+                                    if (i.negated) {
+                                        if (d && r.length > 0) return !1
+                                    } else if (!d) return !1
+                                }
+                    }
+                    return !0
+                }
+                s(He, "cardMatchesFilter");
+
+                function pt(e, t) {
+                    return t.some(n => n.startsWith(e))
+                }
+                s(pt, "isPartiallyMatched");
+
+                function ht(e, t) {
+                    return t.indexOf(e) !== -1
+                }
+                s(ht, "isFullyMatched");
+
+                function gt(e, t) {
+                    const n = new URL(window.location.href, window.location.origin),
+                        o = new URLSearchParams(n.search.slice(1));
+                    t === "" ? o.delete(e) : o.set(e, t), n.search = o.toString(), (0, fe.lO)((0, fe.y0)(), document.title, n.toString())
+                }
+                s(gt, "setQueryParam");
+
+                function jt(e, t) {
+                    for (const n of document.querySelectorAll(".js-project-fullscreen-link")) {
+                        const o = new URL(n.getAttribute("href") || "", window.location.origin),
+                            r = new URLSearchParams(o.search.slice(1));
+                        t === "" ? r.delete(e) : r.set(e, t), o.search = r.toString(), n.setAttribute("href", o.toString())
+                    }
+                }
+                s(jt, "updateFullscreenLinks");
+
+                function _e() {
+                    const e = je();
+                    for (const t of document.querySelectorAll(".js-project-columns-container .js-project-column")) {
+                        const n = t.querySelector(".js-filtered-column-card-count");
+                        if (!!n) {
+                            if (e.length > 0) {
+                                const o = t.querySelectorAll(".js-project-column-card:not(.d-none)").length;
+                                n.textContent = `${o.toString()} result${o!==1?"s":""}`
+                            }
+                            n.classList.toggle("d-none", e.length === 0)
+                        }
+                    }
+                }
+                s(_e, "updateFilteredCardCounts");
+
+                function $e(e) {
+                    const t = ft();
+                    let n = He(e, t);
+                    if (!n) {
+                        for (const o of e.querySelectorAll(".js-issue-note, .js-issue-note-reference"))
+                            if (n = He(o, t), n) break
+                    }
+                    e.classList.toggle("d-none", !n)
+                }
+                s($e, "filterCard");
+
+                function Fe() {
+                    const e = document.querySelector(".js-card-filter-input");
+                    if (!e) return;
+                    const t = je(),
+                        n = document.querySelector(".js-card-filter-clear");
+                    n == null || n.classList.toggle("d-none", t.length === 0), gt(e.name, t), jt(e.name, t)
+                }
+                s(Fe, "updateFilterState");
+
+                function Be() {
+                    for (const e of document.querySelectorAll(".js-project-columns-container .js-project-column-card")) $e(e);
+                    _e(), Fe()
+                }
+                s(Be, "filterCards");
+                const yt = /:"[^"]*"?$/,
+                    vt = /(^|\s+)[^\s:]+$/,
+                    bt = /^(\s|$)/;
+
+                function Ct(e) {
+                    if (document.activeElement !== e) return !1;
+                    const t = e.value.slice(0, e.selectionEnd),
+                        n = e.value.slice(e.selectionEnd),
+                        o = e.value.trim().length === 0;
+                    if (yt.test(t)) return !1;
+                    const r = vt.test(t) && bt.test(n);
+                    return o || r
+                }
+                s(Ct, "shouldShowSuggestions");
+
+                function ye(e) {
+                    Ct(e) ? Lt(e) : ee()
+                }
+                s(ye, "updateSuggestionsDisplay");
+                const St = /(^|\s)[^\s:]+$/,
+                    wt = /\S*$/;
+
+                function Lt(e) {
+                    const t = document.querySelector(".js-card-filter-suggester");
+                    if (t instanceof HTMLElement) {
+                        t.classList.add("js-active-navigation-container"), t.classList.remove("d-none");
+                        const o = (e.value.slice(0, e.selectionEnd).match(wt) || [])[0],
+                            r = t.querySelector(".js-card-filter-suggester-helper-container"),
+                            c = r.querySelector(".js-card-filter-suggester-helper");
+                        St.test(e.value) ? (c.textContent = e.value, r.classList.remove("d-none")) : r.classList.add("d-none");
+                        const i = t.querySelector(".js-card-filter-suggestions-header");
+                        let d = !1;
+                        for (const g of t.querySelectorAll(".js-card-filter-suggestion")) {
+                            const M = g.getAttribute("data-value");
+                            M && M.startsWith(o) ? (g.classList.remove("d-none"), d = !0) : g.classList.add("d-none")
+                        }
+                        i.classList.toggle("d-none", !d)
+                    }
+                }
+                s(Lt, "showSuggestions");
+
+                function ee() {
+                    const e = document.querySelector(".js-card-filter-suggester");
+                    e instanceof HTMLElement && (e.classList.remove("js-active-navigation-container"), e.classList.add("d-none"))
+                }
+                s(ee, "hideSuggestions");
+
+                function At(e, t) {
+                    for (const n of document.querySelectorAll(".js-card-filter[data-card-filter]")) n.getAttribute("data-card-filter") === t && n.setAttribute("aria-pressed", e.toString())
+                }
+                s(At, "clickFilterA11y");
+
+                function Et(e) {
+                    const t = document.querySelector(".js-card-filter-input"),
+                        n = t.value;
+                    let o = e,
+                        r = !0;
+                    n.indexOf(o) >= 0 ? (r = !1, o = n.replace(o, "")) : n.length && (o = `${n.trim()} ${o}`), t.value = o, At(r, e), Be()
+                }
+                s(Et, "applyFilter");
+                var Z = f(57654),
+                    Ne = f(66963),
+                    te = f(43721),
+                    Tt = f(7732),
+                    ve = f(46073);
+                const qt = !navigator.userAgent.match(/Macintosh/);
+
+                function se(e) {
+                    switch (e) {
+                        case " ":
+                            return "Space";
+                        case "ArrowUp":
+                        case "k":
+                        case "K":
+                            return "up";
+                        case "ArrowDown":
+                        case "j":
+                        case "J":
+                            return "down";
+                        case "ArrowLeft":
+                        case "h":
+                        case "H":
+                            return "left";
+                        case "ArrowRight":
+                        case "l":
+                        case "L":
+                            return "right";
+                        case "Enter":
+                            return "confirm";
+                        case "Escape":
+                            return "cancel";
+                        default:
+                            return e
+                    }
+                }
+                s(se, "getAction");
+                class be {
+                    constructor(t, n) {
+                        this.item = t, this.onDone = n, this.moved = !1, this.moveInProgress = !1, this.blurring = !1, this.blurListener = this.handleBlur.bind(this), this.item.addEventListener("blur", this.blurListener), this.item.classList.add("moving")
+                    }
+                    handleBlur(t) {
+                        !this.moveInProgress && t.relatedTarget && (this.blurring = !0, this.cancel())
+                    }
+                    isMetaKeyPressed(t) {
+                        return qt ? t.ctrlKey : t.metaKey
+                    }
+                    inPendingColumn() {
+                        return this.item.closest(".js-project-pending-cards") != null
+                    }
+                    findColumn(t) {
+                        return t ? document.querySelector(`.js-project-column[data-id="${t}"]`) : null
+                    }
+                    findCard(t) {
+                        if (!t) return null;
+                        let n = document.querySelector(`.js-project-column-card[data-card-id="${t}"]`);
+                        return n || (n = document.querySelector(`.js-project-column-card[data-content-id="${t}"]`)), n
+                    }
+                    isColumn(t) {
+                        return t != null ? t.classList.contains("js-project-column") : !1
+                    }
+                    getColumn() {
+                        return this.item.closest(".js-project-column")
+                    }
+                    getPane() {
+                        return this.item.closest(".js-project-pane")
+                    }
+                    getColumnName() {
+                        const t = this.getColumn(),
+                            n = t && t.querySelector(".js-project-column-name");
+                        return n ? n.textContent : ""
+                    }
+                    getColumnsContainer() {
+                        return document.querySelector(".js-project-columns-container")
+                    }
+                    getNextColumn() {
+                        const t = this.getColumn();
+                        if (t) {
+                            const n = t.nextElementSibling;
+                            if (this.isColumn(n)) return n
+                        }
+                        return null
+                    }
+                    getPreviousColumn() {
+                        const t = this.getColumn();
+                        if (t) {
+                            const n = t.previousElementSibling;
+                            if (this.isColumn(n)) return n
+                        }
+                        return null
+                    }
+                    getFirstColumn() {
+                        return this.getColumnsContainer().querySelector(".js-project-column")
+                    }
+                    getLastColumn() {
+                        const t = this.getColumnsContainer().querySelectorAll(".js-project-column");
+                        return t[t.length - 1]
+                    }
+                    getCardID(t) {
+                        return t && (t.getAttribute("data-card-id") || t.getAttribute("data-content-id")) || ""
+                    }
+                    getColumnID(t) {
+                        return t && t.getAttribute("data-id") || ""
+                    }
+                    isMoving(t) {
+                        return t === this.item
+                    }
+                    updateAriaLabel() {}
+                    moveTransaction(t) {
+                        try {
+                            this.moveInProgress = !0, t(this.item), this.blurring || (this.updateAriaLabel(), this.item.focus())
+                        } finally {
+                            this.moved = !0, this.moveInProgress = !1
+                        }
+                    }
+                    done() {
+                        this.item.removeEventListener("blur", this.blurListener), this.item.classList.remove("moving"), this.item.removeAttribute("aria-label"), this.onDone()
+                    }
+                    cancel() {}
+                }
+                s(be, "ItemMove");
+                class Oe extends be {
+                    constructor(t, n, o) {
+                        super(t, o);
+                        this.moveCard = n, this.pendingCard = this.inPendingColumn(), this.getPane() && (this.paneColumnCards = t.closest(".js-project-column-cards")), this.columnID = this.getColumnID(this.getColumn()), this.previousCardID = this.getCardID(t.previousElementSibling), this.keydownListener = this.handleKeydown.bind(this), this.item.addEventListener("keydown", this.keydownListener), this.updateStartListener = this.handleUpdateStart.bind(this), this.getColumnsContainer().addEventListener("will-update-project", this.updateStartListener), this.updateEndListener = this.handleUpdateEnd.bind(this), this.getColumnsContainer().addEventListener("update-project", this.updateEndListener)
+                    }
+                    updateAriaLabel() {
+                        const t = this.getCardIndex(),
+                            n = t >= 0 ? `to position ${t+1} of ${this.getCardCount()}` : "",
+                            o = `in ${this.getColumnName()} column`;
+                        this.item.setAttribute("aria-label", `Moved card ${n} ${o}`.trim())
+                    }
+                    handleUpdateStart(t) {
+                        const n = this.getColumn();
+                        if (!n) {
+                            this.done();
+                            return
+                        }
+                        if (!this.paneColumnCards && !this.updatePreviousPosition(t.detail)) {
+                            this.done();
+                            return
+                        }
+                        const o = this.getColumnID(n);
+                        if (!this.isColumnInState(t.detail, o)) {
+                            this.done();
+                            return
+                        }
+                        this.updateSnapshot = {
+                            columnID: o,
+                            indexInColumn: this.getCardIndex()
+                        }
+                    }
+                    handleUpdateEnd() {
+                        const t = this.updateSnapshot;
+                        if (this.updateSnapshot = null, !t || !this.getColumn()) {
+                            this.done();
+                            return
+                        }
+                        const n = this.findCard(this.getCardID(this.item)),
+                            o = this.getColumnCards(this.findColumn(t.columnID));
+                        if (n && o) {
+                            this.moveToColumn(o);
+                            const r = o.children[t.indexInColumn];
+                            n !== r && this.moveToBeforeCard(o, r)
+                        }
+                    }
+                    handleKeydown(t) {
+                        const n = this.isMetaKeyPressed(t);
+                        if (!!(0, ve.Zf)(t)) switch (se(t.key)) {
+                            case "up":
+                                n ? this.moveToTop() : this.moveUp(), t.preventDefault();
+                                break;
+                            case "down":
+                                n ? this.moveToBottom() : this.moveDown(), t.preventDefault();
+                                break;
+                            case "left":
+                                n ? this.moveToFirstColumn(t.shiftKey) : this.moveLeft(t.shiftKey), t.preventDefault();
+                                break;
+                            case "right":
+                                n ? this.moveToLastColumn(t.shiftKey) : this.moveRight(t.shiftKey), t.preventDefault();
+                                break;
+                            case "confirm":
+                                this.confirm(), t.preventDefault();
+                                break;
+                            case "cancel":
+                                this.cancel(), t.preventDefault();
+                                break
+                        }
+                    }
+                    updatePreviousPosition(t) {
+                        if (!t || !t.columns) return !1;
+                        const n = this.getCardID(this.item);
+                        for (const o of t.columns)
+                            for (let r = 0; r < o.card_ids.length; r++)
+                                if (n === o.card_ids[r].toString()) return this.previousCardID = o.card_ids[r - 1].toString(), this.columnID = o.id.toString(), !0;
+                        return !1
+                    }
+                    isColumnInState(t, n) {
+                        if (!t || !t.columns) return !1;
+                        for (const o of t.columns)
+                            if (n === o.id.toString()) return !0;
+                        return !1
+                    }
+                    getCardIndex() {
+                        const t = this.getColumnCards(this.getColumn());
+                        return t ? Array.from(t.children).indexOf(this.item) : -1
+                    }
+                    getCardCount() {
+                        const t = this.getColumnCards(this.getColumn());
+                        return t ? t.querySelectorAll(".js-project-column-card").length : 0
+                    }
+                    getColumnCards(t) {
+                        return t != null ? t.querySelector(".js-project-column-cards") : null
+                    }
+                    moveToBeforeCard(t, n) {
+                        this.moveTransaction(function(o) {
+                            t.insertBefore(o, n)
+                        })
+                    }
+                    moveToColumn(t) {
+                        this.moveTransaction(function(n) {
+                            t.appendChild(n)
+                        })
+                    }
+                    moveUp() {
+                        const t = this.item.previousElementSibling,
+                            n = this.getColumnCards(this.getColumn());
+                        t && n && this.moveToBeforeCard(n, t)
+                    }
+                    moveToTop() {
+                        const t = this.getColumnCards(this.getColumn());
+                        t && this.moveTransaction(function(n) {
+                            t.prepend(n)
+                        })
+                    }
+                    moveDown() {
+                        const t = this.item.nextElementSibling,
+                            n = this.getColumnCards(this.getColumn());
+                        if (t && n) {
+                            const o = t.nextElementSibling;
+                            o ? this.moveToBeforeCard(n, o) : this.moveToBottom()
+                        } else this.moveToBottom()
+                    }
+                    moveToBottom() {
+                        const t = this.getColumnCards(this.getColumn());
+                        t && this.moveToColumn(t)
+                    }
+                    moveToFirstColumn(t) {
+                        const n = this.getColumnCards(this.getFirstColumn());
+                        n && (this.moveToColumn(n), t && this.moveToTop())
+                    }
+                    moveToLastColumn(t) {
+                        const n = this.getColumnCards(this.getLastColumn());
+                        n && (this.moveToColumn(n), t && this.moveToTop())
+                    }
+                    moveLeft(t) {
+                        const n = this.getColumnCards(this.getPane() ? this.getLastColumn() : this.getPreviousColumn());
+                        n && (this.moveToColumn(n), t && this.moveToTop())
+                    }
+                    moveRight(t) {
+                        const n = this.getColumnCards(this.getNextColumn());
+                        n && (this.moveToColumn(n), t && this.moveToTop())
+                    }
+                    done() {
+                        super.done(), this.item.removeEventListener("keydown", this.keydownListener), this.getColumnsContainer().removeEventListener("will-update-project", this.updateStartListener), this.getColumnsContainer().removeEventListener("update-project", this.updateEndListener)
+                    }
+                    confirm() {
+                        if (this.moved) {
+                            let t = this.findColumn(this.columnID);
+                            this.pendingCard && !t && (t = document.querySelector(".js-project-pending-cards-container.js-project-column")), this.moveCard(this.item, t, {
+                                keyboardMove: !0
+                            })
+                        }
+                        this.done()
+                    }
+                    cancel() {
+                        let t, n;
+                        if (this.moved)
+                            if (this.previousCardID) {
+                                const o = this.findCard(this.previousCardID);
+                                o && (t = o.closest(".js-project-column-cards"), n = o.nextElementSibling)
+                            } else this.columnID ? (t = this.getColumnCards(this.findColumn(this.columnID)), t && (n = t.firstElementChild)) : this.paneColumnCards && (t = this.paneColumnCards, n = t.firstElementChild);
+                        t && (n ? this.moveToBeforeCard(t, n) : this.moveToColumn(t)), this.done()
+                    }
+                }
+                s(Oe, "CardMove");
+                class Ue extends be {
+                    constructor(t, n, o) {
+                        super(t, o);
+                        this.moveColumn = n, this.nextColumnID = this.getColumnID(t.nextElementSibling), this.keydownListener = this.handleKeydown.bind(this), this.item.addEventListener("keydown", this.keydownListener), this.updateListener = this.done.bind(this), this.getColumnsContainer().addEventListener("will-update-project-columns", this.updateListener)
+                    }
+                    updateAriaLabel() {
+                        const t = this.getColumnIndex(),
+                            n = t >= 0 ? `to position ${t+1} of ${this.getColumnCount()}` : "";
+                        this.item.setAttribute("aria-label", `Moved ${this.getColumnName()} column ${n}`.trim())
+                    }
+                    getColumnIndex() {
+                        const t = this.getColumnsContainer().querySelectorAll(".js-project-column");
+                        return Array.from(t).indexOf(this.item)
+                    }
+                    getColumnCount() {
+                        return this.getColumnsContainer().querySelectorAll(".js-project-column").length
+                    }
+                    handleKeydown(t) {
+                        if (!(0, ve.Zf)(t)) return;
+                        const n = this.isMetaKeyPressed(t);
+                        switch (se(t.key)) {
+                            case "left":
+                                n ? this.moveToFirstColumn() : this.moveLeft(), t.preventDefault();
+                                break;
+                            case "right":
+                                n ? this.moveToLastColumn() : this.moveRight(), t.preventDefault();
+                                break;
+                            case "confirm":
+                                this.confirm(), t.preventDefault();
+                                break;
+                            case "cancel":
+                                this.cancel(), t.preventDefault();
+                                break
+                        }
+                    }
+                    insertBefore(t) {
+                        const n = this.getColumnsContainer();
+                        this.moveTransaction(function(o) {
+                            n.insertBefore(o, t)
+                        })
+                    }
+                    moveLeft() {
+                        const t = this.getPreviousColumn();
+                        t && this.insertBefore(t)
+                    }
+                    moveRight() {
+                        const t = this.getNextColumn();
+                        if (t) {
+                            const n = t.nextElementSibling;
+                            n && this.isColumn(n) ? this.insertBefore(n) : this.moveToLastColumn()
+                        } else this.moveToLastColumn()
+                    }
+                    moveToFirstColumn() {
+                        const t = this.getFirstColumn();
+                        t && this.insertBefore(t)
+                    }
+                    moveToLastColumn() {
+                        const t = this.getLastColumn();
+                        if (t) {
+                            const n = t.nextElementSibling;
+                            n && this.insertBefore(n)
+                        }
+                    }
+                    done() {
+                        super.done(), this.item.removeEventListener("keydown", this.keydownListener), this.getColumnsContainer().removeEventListener("will-update-project-columns", this.updateListener)
+                    }
+                    confirm() {
+                        this.moved && this.moveColumn(this.item, {
+                            keyboardMove: !0
+                        }), this.done()
+                    }
+                    cancel() {
+                        if (this.moved) {
+                            const t = this.findColumn(this.nextColumnID);
+                            t ? this.insertBefore(t) : this.moveToLastColumn()
+                        }
+                        this.done()
+                    }
+                }
+                s(Ue, "ColumnMove");
+
+                function kt(e, t) {
+                    let n, o;
+
+                    function r(i) {
+                        if (n) return;
+                        const d = i.currentTarget;
+                        if (!!(0, ve.Zf)(i)) switch (se(i.key)) {
+                            case "confirm":
+                            case "Space":
+                                if (d.classList.contains("js-redacted-project-column-card") || !d.classList.contains("js-keyboard-movable")) return;
+                                n = new Oe(d, e, s(function() {
+                                    n = null
+                                }, "onDone")), i.preventDefault();
+                                break;
+                            case "up": {
+                                const g = d.previousElementSibling;
+                                if (g && g.classList.contains("js-project-column-card")) g.focus(), i.preventDefault();
+                                else {
+                                    const M = d.closest(".js-project-column");
+                                    M instanceof HTMLElement && (M.focus(), i.preventDefault())
+                                }
+                                break
+                            }
+                            case "down": {
+                                const g = d.nextElementSibling;
+                                g && g.classList.contains("js-project-column-card") && (g.focus(), i.preventDefault());
+                                break
+                            }
+                        }
+                    }
+                    s(r, "onCardKeypress");
+
+                    function c(i) {
+                        if (o || i.target instanceof HTMLInputElement || i.target instanceof HTMLTextAreaElement) return;
+                        const d = i.currentTarget;
+                        switch (se(i.key)) {
+                            case "confirm":
+                            case "Space":
+                                if (!d.classList.contains("js-keyboard-movable")) return;
+                                o = new Ue(d, t, s(function() {
+                                    o = null
+                                }, "onDone")), i.preventDefault();
+                                break;
+                            case "down": {
+                                const g = d.querySelector(".js-project-column-card");
+                                g && (g.focus(), i.preventDefault());
+                                break
+                            }
+                            case "left": {
+                                const g = d.previousElementSibling;
+                                g && g.classList.contains("js-project-column") && (g.focus(), i.preventDefault());
+                                break
+                            }
+                            case "right": {
+                                const g = d.nextElementSibling;
+                                g && g.classList.contains("js-project-column") && (g.focus(), i.preventDefault());
+                                break
+                            }
+                        }
+                    }
+                    s(c, "onColumnKeypress"), (0, te.ZG)(".js-project-column-card", function(i) {
+                        if (n) {
+                            if (n.isMoving(i)) return;
+                            n.cancel()
+                        }
+                        i.addEventListener("keydown", r), i.addEventListener("blur", s(function d() {
+                            n && n.isMoving(i) || (i.removeEventListener("blur", d), i.removeEventListener("keydown", r))
+                        }, "onBlur"))
+                    }), (0, te.ZG)(".js-project-column", function(i) {
+                        if (o) {
+                            if (o.isMoving(i)) return;
+                            o.cancel()
+                        }
+                        i.addEventListener("keydown", c), i.addEventListener("blur", s(function d() {
+                            o && o.isMoving(i) || (i.removeEventListener("blur", d), i.removeEventListener("keydown", c))
+                        }, "onBlur"))
+                    })
+                }
+                s(kt, "enableKeyboardMovements");
+                var xt = f(86248),
+                    Ke = f(11793),
+                    Ce = f(16246),
+                    Dt = f(47458),
+                    $ = f(64463),
+                    It = f(5638),
+                    Mt = f(77552),
+                    Pt = f(34692),
+                    Rt = f(96867),
+                    Ht = f(75488);
+                let ce;
+                const We = document.querySelector(".js-client-uid");
+                We && (ce = We.getAttribute("data-uid"));
+
+                function _(e, t) {
+                    (0, me.AC)(e, async function(n, o, r) {
+                        try {
+                            await t(n, o, r)
+                        } catch (c) {
+                            throw c.response && await K("project-update-error"), c
+                        }
+                    })
+                }
+                s(_, "remoteProjectForm");
+
+                function _t(e, t, n) {
+                    (0, me.AC)(e, async function(o, r, c) {
+                        const i = o.querySelector(".form-actions"),
+                            d = o.querySelector(".js-project-loader");
+                        i.classList.add("d-none"), d.classList.remove("d-none");
+                        try {
+                            await n(o, r, c)
+                        } catch (g) {
+                            throw g.response && await K(t), i.classList.remove("d-none"), d.classList.add("d-none"), g
+                        }
+                    })
+                }
+                s(_t, "remoteFormDisabledOnSubmit");
+
+                function G(e) {
+                    e.closest("details-dialog").toggle(!1)
+                }
+                s(G, "closeDialog");
+                async function K(e, t) {
+                    const n = document.querySelector(`#${e}`),
+                        o = await (0, Tt.W)({
+                            content: n.content.cloneNode(!0),
+                            dialogClass: "project-dialog"
+                        });
+                    return t && t.setAttribute("aria-expanded", "true"), o.addEventListener("dialog:remove", function() {
+                        t && t.setAttribute("aria-expanded", "false")
+                    }, {
+                        once: !0
+                    }), o
+                }
+                s(K, "openDialog");
+
+                function $t(e, t) {
+                    const n = e.elements.namedItem("card_id"),
+                        o = e.elements.namedItem("content_id"),
+                        r = e.elements.namedItem("content_type");
+                    if (!t) {
+                        n.value = "", o.value = "", r.value = "";
+                        return
+                    }
+                    const c = t.getAttribute("data-card-id");
+                    c ? (n.value = c, o.value = "", r.value = "") : (n.value = "", o.value = t.getAttribute("data-content-id"), r.value = t.getAttribute("data-content-type")), e.elements.namedItem("client_uid").value = ce
+                }
+                s($t, "populateFormFromCard");
+
+                function ne(e, t) {
+                    const n = e.querySelector(".js-column-card-count"),
+                        o = parseInt(n.textContent.trim()),
+                        r = e.getAttribute("data-id");
+                    let c = o + t;
+                    t === 0 && (c = 0), n.textContent = c.toString();
+                    let i;
+                    r && (i = document.querySelector(`.js-project-column-navigation-item[data-column-id="${r}"] .js-column-nav-card-count`), i && (i.textContent = c.toString()));
+                    const d = `Contains ${c} ${c===1?"item":"items"}`;
+                    n.setAttribute("aria-label", d), i && i.setAttribute("aria-label", d)
+                }
+                s(ne, "updateColumnCount");
+
+                function Qe(e, t) {
+                    const n = e.elements.namedItem("keyboard_move");
+                    t && t.keyboardMove === !0 ? n.value = "true" : n.value = ""
+                }
+                s(Qe, "trackKeyboardMove");
+
+                function ie(e, t, n) {
+                    t && (Kt(t), ne(t, -1));
+                    const o = e.closest(".js-project-column");
+                    if (!o) return;
+                    const r = o.getAttribute("data-id");
+                    e.setAttribute("data-column-id", r), ne(o, 1), Wt();
+                    const c = o.querySelector(".js-project-content-form");
+                    c.reset(), $t(c, e);
+                    const i = e.previousElementSibling,
+                        d = c.elements.namedItem("previous_card_id");
+                    i ? d.value = i.getAttribute("data-card-id") : d.value = "", Qe(c, n), (0, Z.Bt)(c)
+                }
+                s(ie, "moveCard");
+
+                function ae(e) {
+                    const t = e.item;
+                    if (t.closest(".js-project-triage-pane")) return;
+                    const n = e.from,
+                        o = n && n.closest(".js-project-column");
+                    ie(t, o), t.focus()
+                }
+                s(ae, "handleCardDrag");
+
+                function Ve(e) {
+                    const t = e.closest(".js-project-column");
+                    t && ne(t, -1), e.remove()
+                }
+                s(Ve, "removeCard");
+
+                function Ft(e) {
+                    const t = e.querySelector(".js-project-column-cards");
+                    t.innerHTML = "", ne(e, 0)
+                }
+                s(Ft, "removeAllCardsFromColumn");
+                const Bt = /^#card-(\d+)$/;
+
+                function Nt() {
+                    const e = document.location.hash.match(Bt);
+                    return e ? e[1] : null
+                }
+                s(Nt, "getCardIdFromHash");
+
+                function Ze(e, t) {
+                    const n = document.querySelector(".js-reorder-columns-form");
+                    n.elements.namedItem("column_id").value = e.getAttribute("data-id");
+                    const o = e.previousElementSibling,
+                        r = n.elements.namedItem("previous_column_id");
+                    o ? r.value = o.getAttribute("data-id") : r.value = "", Qe(n, t), (0, Z.Bt)(n)
+                }
+                s(Ze, "moveColumn");
+
+                function Ot(e) {
+                    if (e.related && !e.related.matches(".js-project-column")) return !1
+                }
+                s(Ot, "handleColumnMove");
+
+                function Ut(e) {
+                    const t = e.item;
+                    Ze(t), t.focus()
+                }
+                s(Ut, "handleColumnUpdate");
+
+                function Kt(e) {
+                    e.classList.contains("js-project-pending-cards-container") && e.querySelectorAll(".js-project-column-card").length === 0 && e.remove()
+                }
+                s(Kt, "cleanupPendingCards");
+
+                function Wt() {
+                    for (const e of document.querySelectorAll(".js-project-search-cards")) {
+                        const t = e.querySelector(".js-search-cards-next-page");
+                        t instanceof HTMLInputElement && e.querySelector(".js-project-column-card") == null && (t.value = "1")
+                    }
+                }
+                s(Wt, "cleanupSearchResults");
+
+                function Se() {
+                    const e = document.querySelector(".js-project-search-form");
+                    e instanceof HTMLFormElement && (0, Z.Bt)(e)
+                }
+                s(Se, "refreshAddCardsSearchResults"), (0, u.on)("change", ".js-toggle-linked-repo-scope", function(e) {
+                    const t = e.currentTarget,
+                        n = t.form,
+                        o = n.querySelector(".js-project-triage-search-text"),
+                        r = o.value || "";
+                    let c;
+                    t.checked ? c = r.replace(/(\s|^)repo:[^\s]*\s*/gi, "$1").trim() : c = `${r.trim()} repo:*`, c !== r && (o.value = c, (0, Z.Bt)(n))
+                });
+
+                function we() {
+                    const e = document.querySelector(".js-project-archived-cards-search-form");
+                    e instanceof HTMLFormElement && (0, Z.Bt)(e)
+                }
+                s(we, "refreshArchivedCardsSearchResults"), (0, u.on)("click", ".js-project-show-all-archived-cards", we);
+
+                function Ge(e, t, n) {
+                    let o;
+                    return e && (o = document.querySelector(`.js-project-column-card[data-card-id="${e}"]`)), !o && t && n && (o = document.querySelector(`.js-project-column-card[data-content-type="${n}"][data-content-id="${t}"]`)), o
+                }
+                s(Ge, "findCard"), _(".js-project-update-card", async function(e, t) {
+                    const o = (await t.html()).html.querySelector("*"),
+                        r = Ge(o.getAttribute("data-card-id"), o.getAttribute("data-content-id"), o.getAttribute("data-content-type")),
+                        c = !!(r && r === r.ownerDocument.activeElement);
+                    r && r.replaceWith(o), c && o.focus()
+                }), _t(".js-project-clone-form", "project-clone-error", async function(e, t) {
+                    const n = await t.json(),
+                        o = n.json.project_url,
+                        r = n.json.job_status_url;
+                    try {
+                        await (0, Ne.D)(r), window.location = o
+                    } catch {
+                        o ? (await K("project-clone-partial-error")).querySelector(".js-cloned-board-link").setAttribute("href", o) : await K("project-clone-error")
+                    }
+                });
+
+                function Qt(e) {
+                    try {
+                        return e && e.json && e.json.error_code === "note_already_converted_to_issue"
+                    } catch {
+                        return !1
+                    }
+                }
+                s(Qt, "isNoteAlreadyConvertedToIssue"), _(".js-convert-note-to-issue-form", async function(e, t) {
+                    try {
+                        await t.text(), G(e)
+                    } catch (n) {
+                        if (Qt(n.response)) {
+                            const o = e.querySelector(".js-convert-note-error-container");
+                            o.innerHTML = "", o.append((0, It.r)(document, n.response.json.error_html))
+                        } else throw n
+                    }
+                }), _(".js-change-project-state-form", async function(e, t) {
+                    const n = document.activeElement;
+                    n instanceof HTMLElement && e.contains(n) && n.blur(), await t.text(), G(e)
+                }), (0, u.on)("click", ".js-add-project-description", async function() {
+                    const e = await K("edit-project");
+                    e.querySelector("#edit-project-name").removeAttribute("autofocus"), e.querySelector("#edit-project-body").setAttribute("autofocus", "")
+                }), (0, u.on)("click", ".js-project-target-owner", function(e) {
+                    const n = e.currentTarget.getAttribute("data-owner-type") === "repository",
+                        o = e.currentTarget.closest(".js-project-clone-dialog");
+                    if (o.querySelector(".js-project-clone-visibility").classList.toggle("d-none", n), n) {
+                        const c = o.querySelector(".js-project-clone-private");
+                        c.checked = !0
+                    }
+                }), (0, u.on)("click", ".js-refresh-project", function() {
+                    window.location.reload()
+                }), _(".js-create-project-column", async function(e, t) {
+                    const n = await t.html(),
+                        o = n.html.querySelector("*");
+                    if (o.classList.contains("js-column-form-container")) e.closest(".js-column-form-container").replaceWith(o), le();
+                    else {
+                        document.querySelector(".js-new-project-column-container").before(n.html), G(e), j(o);
+                        const i = o.getAttribute("data-id");
+                        i && (oe(i), Ee(i), ue()), document.querySelector(".js-new-column-blankslate").classList.contains("d-none") || ze(!1)
+                    }
+                }), _(".js-update-project-column", async function(e, t) {
+                    const o = (await t.html()).html.querySelector("*");
+                    if (o.classList.contains("js-column-form-container")) e.closest(".js-column-form-container").replaceWith(o), le();
+                    else {
+                        const c = e.getAttribute("data-column-id");
+                        document.querySelector(`.js-project-column[data-id="${c}"]`).replaceWith(o), v(o), G(e)
+                    }
+                }), _(".js-delete-project-column", async function(e, t) {
+                    await t.text();
+                    const n = e.getAttribute("data-column-id"),
+                        o = document.querySelectorAll(".js-project-column");
+                    document.querySelector(`.js-project-column[data-id="${n}"]`).remove(), G(e), h(n), o.length === 1 && ze(!0)
+                }), _(".js-archive-project-column", async function(e, t) {
+                    await t.text();
+                    const n = e.getAttribute("data-column-id"),
+                        o = document.querySelector(`.js-project-column[data-id="${n}"]`);
+                    Ft(o), G(e)
+                }), (0, $.N7)(".js-project-column-card, .js-project-column", {
+                    constructor: HTMLElement,
+                    initialize(e) {
+                        e.id === document.location.hash.substr(1) && setTimeout(() => {
+                            document.querySelector(".js-project-page-mobile") || e.focus()
+                        }, 1)
+                    }
+                });
+
+                function ze(e) {
+                    const t = document.querySelector(".js-new-project-column-container"),
+                        n = document.querySelector(".js-new-column-blankslate"),
+                        o = t.querySelector(".js-new-column-button");
+                    n.classList.toggle("d-none", !e), o.classList.toggle("d-none", e), e && O(".js-project-triage-pane", !1)
+                }
+                s(ze, "toggleBlankSlate"), _(".js-remove-card-after-request", async function(e, t) {
+                    await t.text(), Ve(e.closest(".js-project-column-card")), Se()
+                }), _(".js-archive-project-card", async function(e, t) {
+                    Ve(e.closest(".js-project-column-card")), await t.text(), we()
+                }), _(".js-unarchive-project-card", async function(e, t) {
+                    const n = e.closest(".js-project-column-card"),
+                        o = n.getAttribute("data-column-id"),
+                        r = document.querySelector(`.js-project-column[data-id="${o}"] .js-project-column-cards`);
+                    r && (r.append(n), ie(n), n.focus()), t.text()
+                }), _(".js-project-archived-cards-search-form", async function(e, t) {
+                    const o = e.closest(".js-project-archived-cards-pane").querySelector(".js-project-column-cards");
+                    o.textContent = "Loading\u2026", e.classList.add("loading");
+                    let r;
+                    try {
+                        r = await t.html()
+                    } catch {}
+                    o.innerHTML = "", r && o.append(r.html), e.classList.remove("loading")
+                }), (0, Dt.Z)(async function({
+                    target: e
+                }) {
+                    if (e instanceof HTMLElement) e.matches(".js-project-column-card") ? e.focus() : e.matches(".js-project-column") && (oe(e.getAttribute("data-id")), ue());
+                    else if (document.location.hash.length > 0) {
+                        const t = Nt();
+                        if (t != null) {
+                            const n = document.querySelector(".js-project-archived-cards-pane");
+                            if (n) {
+                                const o = n.getAttribute("data-project-archived-card-url"),
+                                    r = await fetch(o.replace("{card_id}", t), {
+                                        headers: {
+                                            "X-Requested-With": "XMLHttpRequest"
+                                        }
+                                    });
+                                r.ok && await r.text() != null && (Xe(t), O(".js-project-archived-cards-pane", !0))
+                            }
+                        }
+                    }
+                });
+
+                function O(e, t) {
+                    for (const n of document.querySelectorAll(".js-project-header, .js-project-columns, .js-project-pane, .js-project-small-footer")) n.classList.toggle("hide-sm", t);
+                    for (const n of document.querySelectorAll(".js-project-columns")) n.classList.toggle("push-board-over", t);
+                    for (const n of document.querySelectorAll(e)) n.classList.toggle("d-none", !t), n.classList.toggle("hide-sm", !t)
+                }
+                s(O, "togglePaneVisibility");
+
+                function Vt() {
+                    const e = document.querySelector(".js-project-activity-results");
+                    if (e) {
+                        const t = e.getAttribute("data-project-activity-url"),
+                            n = new URL(t, window.location.origin);
+                        e.setAttribute("src", n.toString())
+                    }
+                }
+                s(Vt, "loadActivityPane");
+
+                function Xe(e) {
+                    const t = document.querySelector(".js-project-archived-cards-results");
+                    if (t) {
+                        const n = t.getAttribute("data-project-archived-cards-url"),
+                            o = new URL(n, window.location.origin),
+                            r = new URLSearchParams(o.search.slice(1));
+                        e && r.append("card_id", e), o.search = r.toString(), t.setAttribute("src", o.toString())
+                    }
+                }
+                s(Xe, "loadArchivedCardsPane"), (0, u.on)("click", ".js-show-project-triage", function() {
+                    O(".js-project-pane", !1), O(".js-project-menu-pane", !0), O(".js-project-triage-pane", !0);
+                    const e = document.querySelector(".js-project-triage-pane");
+                    e.addEventListener("animationend", function() {
+                        e.querySelector(".js-project-triage-search-text").focus()
+                    }, {
+                        once: !0
+                    })
+                }), (0, u.on)("click", ".js-show-archived-cards", function() {
+                    Xe(), O(".js-project-pane", !1), O(".js-project-menu-pane", !0), O(".js-project-archived-cards-pane", !0)
+                }), (0, u.on)("click", ".js-show-project-menu", function() {
+                    Vt(), O(".js-project-pane", !1), O(".js-project-menu-pane", !0)
+                }), (0, u.on)("click", ".js-hide-project-menu", function() {
+                    O(".js-project-pane", !1)
+                });
+
+                function Je(e, t) {
+                    document.querySelector(".js-show-triage-field").value = t ? "show" : "", Se()
+                }
+                s(Je, "toggleShowAwaitingTriageIssues"), (0, u.on)("click", ".js-show-triage", function(e) {
+                    Je(e, !0)
+                }), (0, u.on)("click", ".js-hide-triage", function(e) {
+                    Je(e, !1)
+                }), _(".js-project-search-form", async function(e, t) {
+                    if (Zt(e)) {
+                        const c = e.querySelector(".js-toggle-linked-repo-scope");
+                        c.checked = !1
+                    }
+                    e.classList.add("loading");
+                    const n = await t.html(),
+                        r = e.closest(".js-project-triage-pane").querySelector(".js-project-search-results");
+                    r.innerHTML = "", r.append(n.html), e.classList.remove("loading")
+                });
+
+                function Zt(e) {
+                    const t = e.querySelector(".js-toggle-linked-repo-scope"),
+                        n = e.querySelector(".js-project-triage-search-text");
+                    return t instanceof HTMLInputElement && t.checked ? mt(n.value, "repo") : !1
+                }
+                s(Zt, "queryContainsInvalidParam"), _(".js-project-activity-form", async function(e, t) {
+                    const n = await t.html(),
+                        o = e.closest(".js-project-activity-pane"),
+                        r = o.querySelector(".js-project-activity-container");
+                    r && (r.innerHTML = "", r.append(n.html)), o && o.classList.remove("Details--on")
+                }), (0, $.N7)(".js-project-column-card", function(e) {
+                    if (e.getAttribute("data-card-id")) {
+                        const t = e.getAttribute("data-content-type"),
+                            n = e.getAttribute("data-content-id"),
+                            o = document.getElementById(`card-${t}-${n}`);
+                        o && o.remove()
+                    }
+                });
+
+                function Gt() {
+                    for (const e of document.querySelectorAll(".js-project-search-cards")) {
+                        const t = e.querySelectorAll(".js-project-column-card"),
+                            n = {};
+                        for (const o of t) {
+                            const r = o.getAttribute("id");
+                            r && (n.hasOwnProperty(r) && o.remove(), n[r] = !0)
+                        }
+                    }
+                }
+                s(Gt, "cleanupDuplicateSearchCards"), (0, $.N7)(".js-more-search-cards-form", {
+                    subscribe: e => (0, Ce.RB)(e, "page:loaded", Gt)
+                });
+
+                function Ye(e) {
+                    const t = e.closest(".js-details-container");
+                    t && t.classList.remove("open", "Details--on")
+                }
+                s(Ye, "closeNoteForm");
+
+                function zt(e) {
+                    (0, Ke.EL)(e) === "Escape" && Ye(e.currentTarget)
+                }
+                s(zt, "onNoteFormKeydown"), (0, u.on)("click", ".js-dismiss-note-form-button", function(e) {
+                    Ye(e.currentTarget)
+                });
+
+                function et(e) {
+                    const t = e.closest(".js-project-column");
+                    if (!t) return;
+                    const n = e.value;
+                    if (e.setAttribute("data-preview-text", n), /(gh-|issues\/|pull\/|projects\/|discussions\/|#)\d+/.test(n)) {
+                        const o = t.querySelector(".js-preview-note-form");
+                        o.elements.namedItem("note").value = n, (0, Z.Bt)(o)
+                    } else t.querySelector(".js-note-preview").innerHTML = ""
+                }
+                s(et, "previewNote"), (0, te.ZG)(".js-note-text", function(e) {
+                    const t = e;
+                    (0, J.oq)(t, et), t.addEventListener("blur", s(function() {
+                        (0, J.iU)(t, et)
+                    }, "onBlur"), {
+                        once: !0
+                    })
+                }), (0, $.N7)(".js-project-note-form", {
+                    subscribe: e => (0, Ce.RB)(e, "keyup", zt)
+                }), _(".js-preview-note-form", async function(e, t) {
+                    const n = e.closest(".js-project-column"),
+                        o = n.querySelector(".js-note-text"),
+                        r = n.querySelector(".js-note-preview");
+                    let c;
+                    try {
+                        c = (await t.html()).html
+                    } catch {}
+                    r.innerHTML = "", c && o.getAttribute("data-preview-text") === o.value && r.appendChild(c)
+                }), (0, u.on)("tab-container-changed", ".js-project-picker-tabs", async function(e) {
+                    const n = e.currentTarget.querySelector("remote-input");
+                    n.setAttribute("aria-owns", e.detail.relatedTarget.id), n.src = e.detail.relatedTarget.getAttribute("data-filter-url")
+                }), _(".js-project-note-form", async function(e, t) {
+                    const n = e.querySelector("textarea");
+                    n.disabled = !0;
+                    const o = e.querySelector("button");
+                    o.disabled = !0;
+                    const r = e.closest(".js-project-column");
+                    r && r.querySelector(".js-note-text").removeAttribute("data-preview-text");
+                    let c;
+                    try {
+                        c = await t.html()
+                    } catch (i) {
+                        if (c = i.response, r && c && c.status === 409 && c.html) {
+                            const d = r.querySelector(".js-note-preview");
+                            d.innerHTML = "", d.appendChild(c.html)
+                        }
+                        c && c.status === 422 && await K("project-update-error"), o.disabled = !1, n.blur(), n.disabled = !1, n.focus();
+                        return
+                    }
+                    if (r) {
+                        const i = r.querySelector(".js-note-preview");
+                        i.innerHTML = "", Xt(r, c.html)
+                    } else Jt(e, c.html);
+                    n.blur(), n.disabled = !1, (0, Z.Se)(n, ""), n.focus()
+                });
+
+                function Xt(e, t) {
+                    e.querySelector(".js-project-column-cards").prepend(t), ne(e, 1)
+                }
+                s(Xt, "handleCreateNote");
+
+                function Jt(e, t) {
+                    const n = t.querySelector("*");
+                    if (!!(n && n.classList.contains("js-note-form-container"))) e.closest(".js-note-form-container").replaceWith(t);
+                    else {
+                        const r = e.getAttribute("data-card-id"),
+                            c = document.getElementById(`card-${r}`);
+                        c && c.replaceWith(t), e.reset(), G(e)
+                    }
+                }
+                s(Jt, "handleUpdateNote");
+
+                function tt(e) {
+                    (0, xt.L$)(e);
+                    const t = e.querySelector(".js-task-list-field");
+                    t.defaultValue = t.value;
+                    for (const n of e.querySelectorAll(".task-list-item-checkbox")) n.defaultChecked = n.checked
+                }
+                s(tt, "resetTaskList"), _(".js-project-column-card .js-comment-update", async function(e, t, n) {
+                    const o = e.closest(".js-task-list-container"),
+                        r = e.closest(".js-project-column-card"),
+                        c = e.getAttribute("data-note-version");
+                    n.headers.set("X-Note-Version", c);
+                    let i;
+                    try {
+                        i = await t.json()
+                    } catch (W) {
+                        if (i = W.response, i && i.status === 422 && i.json.stale) {
+                            k(i.json.message), tt(o), (0, Pt.x0)(r);
+                            return
+                        } else throw W
+                    }
+                    e.setAttribute("data-note-version", i.json.note_version);
+                    const d = i.json.note,
+                        g = o.querySelector(".js-task-list-field");
+                    g.value = d;
+                    const I = r.querySelector(".js-edit-note-template").content.querySelector(".js-edit-note-input");
+                    I.textContent = d, tt(o)
+                });
+                const nt = (0, l.D)(function() {
+                    _e(), Fe()
+                }, 1);
+                (0, u.on)("click", ".js-card-filter-clear", function() {
+                    const e = document.querySelector(".js-card-filter-input");
+                    e.value = "", (0, u.f)(e, "input")
+                }), (0, u.on)("change", ".js-column-purpose-value", function(e) {
+                    le(e.currentTarget.getAttribute("data-preset-url"))
+                });
+                async function le(e) {
+                    const t = document.querySelector(".js-project-column-automation");
+                    if (!t) return;
+                    const n = t.closest(".js-column-settings-form"),
+                        o = t.querySelector(".js-project-automation-options"),
+                        r = n.querySelector(".js-project-autmoation-loader"),
+                        c = n.querySelector(".js-column-purpose-details"),
+                        i = e || t.getAttribute("data-src");
+                    o.src = i, o.addEventListener("loadstart", () => d(!0)), o.addEventListener("loadend", () => d(!1));
+
+                    function d(g) {
+                        c.hidden = g, r.hidden = !g
+                    }
+                    s(d, "setOptionsLoading")
+                }
+                s(le, "loadAutomationOptions"), (0, $.N7)(".project-dialog .js-project-column-automation", function() {
+                    le()
+                }), (0, $.N7)(".js-project-column-card", {
+                    constructor: HTMLElement,
+                    add(e) {
+                        $e(e), nt()
+                    },
+                    remove: nt
+                }), (0, $.N7)(".js-card-filter-input", {
+                    constructor: HTMLInputElement,
+                    add(e) {
+                        e.addEventListener("input", (0, l.D)(Be, 500)), (0, J.oq)(e, function() {
+                            ye(e)
+                        })
+                    }
+                }), (0, u.on)("focusin", ".js-card-filter-input", function(e) {
+                    e.currentTarget instanceof HTMLInputElement && ye(e.currentTarget)
+                }), (0, u.on)("focusout:delay", ".js-card-filter-input", function() {
+                    ee()
+                }), (0, u.on)("click", ".js-card-filter-suggestion", function() {
+                    document.querySelector(".js-card-filter-input").focus()
+                }), (0, u.on)("click", ".js-card-filter", function(e) {
+                    const t = e.currentTarget.getAttribute("data-card-filter");
+                    t && Et(t)
+                }), (0, u.on)("navigation:keydown", ".js-card-filter-suggester", function(e) {
+                    switch ((0, Ke.EL)(e.detail.originalEvent)) {
+                        case "Escape":
+                            e.preventDefault(), ee();
+                            break;
+                        case "ArrowLeft":
+                        case "ArrowRight":
+                        case "Enter":
+                            ee();
+                            break
+                    }
+                }), (0, u.on)("navigation:open", ".js-card-filter-suggester", function(e) {
+                    const t = document.querySelector(".js-card-filter-input");
+                    if (t instanceof HTMLInputElement) {
+                        const n = document.querySelector(".js-card-filter-suggester"),
+                            o = e.target.getAttribute("data-value"),
+                            r = t.value.slice(0, t.selectionEnd).replace(/\S+$/, ""),
+                            c = t.value.slice(t.selectionEnd);
+                        n.classList.contains("d-none") || (e.preventDefault(), t.value = r + o + c, (0, u.f)(t, "input"), ye(t)), ee()
+                    }
+                }), (0, $.N7)(".js-project-columns-container", {
+                    subscribe: e => (0, Ce.RB)(e, "socket:message", async function(t) {
+                        const n = t.detail.data;
+                        if (ce !== n.client_uid) {
+                            const o = t.currentTarget;
+                            Se(), we(), await (0, Rt.Z)(), X(o, n)
+                        } else n.action === "column_automation_updated" && n.state != null && de(n.state)
+                    })
+                }), document.addEventListener("socket:message", function(e) {
+                    const {
+                        data: t,
+                        name: n
+                    } = e.detail;
+                    if (t.locked && en(), t.is_project_activity) {
+                        const o = document.querySelector(".js-project-activity-pane");
+                        o == null || o.classList.add("Details--on")
+                    }
+                    if (n.startsWith("projects:metadata:") && (document.title = t.name, t.project_migration)) {
+                        const o = document.querySelector(".js-migrate-menu-item");
+                        o && (o.textContent = t.project_migration.message, o.setAttribute("disabled", "disabled"))
+                    }
+                }, {
+                    capture: !0
+                });
+
+                function Le(e) {
+                    return e.matches(".js-drag-by-handle") ? "position-fixed" : void 0
+                }
+                s(Le, "fallbackClassForElement");
+
+                function Ae(e) {
+                    return e.matches(".js-drag-by-handle") ? ".js-project-dragger" : void 0
+                }
+                s(Ae, "handleForElement"), (0, $.N7)(".js-project-columns-drag-container", {
+                    constructor: HTMLElement,
+                    async add(e) {
+                        const {
+                            Sortable: t
+                        } = await f.e("app_assets_modules_github_sortable-behavior_ts").then(f.bind(f, 87449));
+                        t.create(e, {
+                            animation: 150,
+                            draggable: ".js-project-column",
+                            filter: ".js-note-text, .js-redacted-project-column-card",
+                            preventOnFilter: !1,
+                            fallbackClass: Le(e),
+                            handle: Ae(e),
+                            handleReplacedDragElement: !0,
+                            group: {
+                                name: "project-column",
+                                put: !1,
+                                pull: !1
+                            },
+                            onMove: Ot,
+                            onUpdate: Ut
+                        })
+                    }
+                }), (0, $.N7)(".js-card-drag-container", {
+                    constructor: HTMLElement,
+                    async add(e) {
+                        const {
+                            Sortable: t
+                        } = await f.e("app_assets_modules_github_sortable-behavior_ts").then(f.bind(f, 87449));
+                        t.create(e, {
+                            animation: 150,
+                            draggable: ".js-project-column-card",
+                            filter: ".js-redacted-project-column-card",
+                            preventOnFilter: !1,
+                            fallbackClass: Le(e),
+                            fallbackOnBody: e.matches(".js-drag-by-handle"),
+                            handle: Ae(e),
+                            handleReplacedDragElement: !0,
+                            group: "project-card",
+                            onAdd: ae,
+                            onUpdate: ae
+                        })
+                    }
+                }), (0, $.N7)(".js-project-search-results-drag-container", {
+                    constructor: HTMLElement,
+                    async add(e) {
+                        const {
+                            Sortable: t
+                        } = await f.e("app_assets_modules_github_sortable-behavior_ts").then(f.bind(f, 87449));
+                        t.create(e, {
+                            sort: !1,
+                            animation: 150,
+                            draggable: ".js-project-column-card",
+                            fallbackClass: Le(e),
+                            fallbackOnBody: e.matches(".js-drag-by-handle"),
+                            handle: Ae(e),
+                            group: {
+                                name: "project-card",
+                                put: !1,
+                                pull: !0
+                            },
+                            onAdd: ae,
+                            onUpdate: ae
+                        })
+                    }
+                }), (0, $.N7)(".js-project-column-card", function(e) {
+                    if (e.getAttribute("data-card-id")) {
+                        const t = e.getAttribute("data-content-type"),
+                            n = e.getAttribute("data-content-id"),
+                            o = document.getElementById(`card-${t}-${n}`);
+                        o && o.remove()
+                    }
+                }), (0, $.N7)(".js-client-uid-field", {
+                    constructor: HTMLInputElement,
+                    add(e) {
+                        e.value = ce
+                    }
+                });
+
+                function ot() {
+                    let e;
+                    if (document.location.hash.startsWith("#column-") && (e = document.getElementById(document.location.hash.substr(1))), e || (e = document.querySelector(".js-project-column")), e) {
+                        const t = e.getAttribute("data-id");
+                        t && (oe(t), ue())
+                    }
+                }
+                s(ot, "setInitialActiveColumn"), (0, $.N7)(".js-project-column[data-active-column]", {
+                    remove() {
+                        document.querySelector(".js-project-column[data-active-column]") || ot()
+                    }
+                });
+
+                function Ee(e) {
+                    if (!document.querySelector(".js-project-page-mobile")) return;
+                    const t = document.createElement("a");
+                    t.href = `#column-${e}`, (0, fe.lO)(null, "", t.href)
+                }
+                s(Ee, "setColumnHash");
+
+                function oe(e) {
+                    for (const t of document.querySelectorAll(".js-project-column")) t.classList.toggle("hide-sm", e !== t.getAttribute("data-id")), e === t.getAttribute("data-id") ? t.setAttribute("data-active-column", "") : t.removeAttribute("data-active-column");
+                    for (const t of document.querySelectorAll(".js-project-column-navigation-item")) t.classList.toggle("selected", e === t.getAttribute("data-column-id"))
+                }
+                s(oe, "setActiveColumn");
+
+                function ue() {
+                    const e = document.querySelector(".js-project-column-navigation-item.selected");
+                    if (!e) return;
+                    const t = e.closest(".js-project-column-nav"),
+                        n = e.offsetLeft,
+                        o = e.offsetWidth,
+                        r = n + o,
+                        c = window.innerWidth;
+                    (r - t.scrollLeft > c || r < t.scrollLeft) && (t.scrollLeft = n - c / 2 + o / 2)
+                }
+                s(ue, "scrollActiveColumnNavIntoViewIfNeeded"), (0, u.on)("click", ".js-project-column-navigation-item", function(e) {
+                    e.preventDefault();
+                    const t = e.currentTarget.getAttribute("data-column-id");
+                    oe(t), Ee(t)
+                }), (0, u.on)("click", ".js-open-active-column-dialog", function(e) {
+                    const t = document.querySelector(".js-project-column[data-active-column]");
+                    if (t) {
+                        const n = t.getAttribute("data-id"),
+                            o = e.currentTarget.getAttribute("data-dialog-prefix");
+                        K(`${o}-${n}`)
+                    }
+                }), (0, u.on)("click", ".js-toggle-project-edit-mode", function(e) {
+                    e.currentTarget.classList.toggle("selected"), document.body.classList.toggle("project-edit-mode")
+                });
+
+                function Yt(e, t) {
+                    const n = e.querySelector(".js-move-card-to-column-dialog-body"),
+                        o = t.closest(".js-project-column-card"),
+                        r = o.closest(".js-project-column"),
+                        c = r && r.getAttribute("data-id"),
+                        i = document.querySelector("#move-card-to-column-button-template"),
+                        d = e.querySelector(".js-move-card-to-column-title");
+                    d.textContent = o.closest(".js-project-archived-cards-pane") ? d.getAttribute("data-restore-title") : d.getAttribute("data-move-title"), n.innerHTML = "";
+                    for (const g of document.querySelectorAll(".js-project-column-navigation-item")) {
+                        const M = g.getAttribute("data-column-id"),
+                            I = i.content.cloneNode(!0).querySelector(".js-move-card-to-column-button");
+                        I.setAttribute("data-card-id", o.getAttribute("data-card-id")), I.setAttribute("data-content-id", o.getAttribute("data-content-id")), I.setAttribute("data-content-type", o.getAttribute("data-content-type")), I.setAttribute("data-column-id", M), t.hasAttribute("data-change-active-column") && I.setAttribute("data-change-active-column", ""), I.textContent = g.getAttribute("data-column-name"), I.disabled = c != null && M === c, n.appendChild(I)
+                    }
+                }
+                s(Yt, "populateMoveCardDialog"), (0, u.on)("click", ".js-move-card-to-column-button", function(e) {
+                    const t = e.currentTarget.getAttribute("data-card-id"),
+                        n = e.currentTarget.getAttribute("data-content-id"),
+                        o = e.currentTarget.getAttribute("data-content-type"),
+                        r = e.currentTarget.getAttribute("data-column-id"),
+                        c = Ge(t, n, o),
+                        i = document.querySelector(`.js-project-column[data-id="${r}"] .js-project-column-cards`);
+                    if (c && i) {
+                        e.currentTarget.hasAttribute("data-change-active-column") && (oe(r), Ee(r), ue());
+                        const d = c.closest(".js-project-column");
+                        i.prepend(c), ie(c, d)
+                    }
+                }), (0, u.on)("click", ".js-add-note-button", function(e) {
+                    e.preventDefault();
+                    const t = document.querySelector(".js-project-column[data-active-column] .js-add-note-container .js-details-target");
+                    t && (0, y.Qp)(t)
+                }), (0, u.on)("click", ".js-project-lock-info-button, .js-close-project-lock-popover", tn);
+
+                function en() {
+                    const e = document.querySelector(".js-project-lock-container");
+                    if (!e) return;
+                    const t = e.querySelector(".Popover"),
+                        n = t.classList.contains("d-none");
+                    if (t.classList.toggle("d-none", !0), !n) {
+                        const o = document.activeElement;
+                        if (e.contains(o)) {
+                            const r = document.querySelector(".js-project-header");
+                            r && r.focus()
+                        }
+                    }
+                }
+                s(en, "closeLockContainer");
+
+                function tn() {
+                    const e = document.querySelector(".js-project-lock-container .Popover"),
+                        t = e.classList.contains("d-none");
+                    e.classList.toggle("d-none", !t)
+                }
+                s(tn, "toggleLockPopover");
+
+                function nn(e, t) {
+                    const o = e.querySelector(".js-project-card-details-back-template").content.cloneNode(!0),
+                        r = t.getAttribute("data-back-to-label"),
+                        c = t.getAttribute("data-back-to-class");
+                    o.querySelector(".js-project-card-details-back-to-title").textContent = r, o.querySelector(".js-project-card-details-back-link").classList.add(c);
+                    const i = e.querySelector(".js-project-card-details-back-container");
+                    i.innerHTML = "", i.appendChild(o)
+                }
+                s(nn, "updateContentDetailsBackToLink");
+
+                function rt() {
+                    const e = document.querySelector(".js-project-issue-body-wrapper"),
+                        t = document.querySelector(".js-project-issue-body-container"),
+                        n = e.getBoundingClientRect().height,
+                        r = t.getBoundingClientRect().height > n;
+                    document.querySelector(".js-project-issue-body-blur").classList.toggle("d-none", !r), document.querySelector(".js-project-issue-body-details-target").classList.toggle("d-none", !r)
+                }
+                s(rt, "truncateCardDetails");
+
+                function on(e, t) {
+                    e.querySelector(".js-project-card-details-error").classList.remove("d-none"), e.querySelector(".js-project-card-details-loader").classList.add("d-none"), e.querySelector(".js-project-card-details-retry").addEventListener("click", function() {
+                        e.removeAttribute("data-issue-url"), Te(t, !1)
+                    }, {
+                        once: !0
+                    })
+                }
+                s(on, "handleIssueDetailsLoadError");
+
+                function rn(e, t) {
+                    const n = e.closest(".js-project-issue-details-container"),
+                        r = document.querySelector(".js-project-card-details-loader-template").content.cloneNode(!0),
+                        c = n.querySelector(".js-issue-octicon").classList.contains("open");
+                    r.querySelector(".js-issue-title").textContent = e.textContent, r.querySelector(".js-issue-number").textContent = n.querySelector(".js-issue-number").textContent, r.querySelector(".js-issue-state").textContent = c ? "Close" : "Reopen";
+                    const i = e.getAttribute("data-content-label");
+                    for (const I of r.querySelectorAll(".js-issue-type")) I.textContent = i;
+                    for (const I of r.querySelectorAll(".js-project-card-details-external-link")) I.setAttribute("href", e.getAttribute("href") || "#"), I.setAttribute("data-ga-click", `Project board, go to ${i}, location:sidebar`);
+                    r.querySelector(".js-hide-project-menu").classList.toggle("d-none", t);
+                    const d = r.querySelector(".js-issue-repository");
+                    d.textContent = e.getAttribute("data-content-repo-label");
+                    const g = encodeURI(e.getAttribute("data-content-repo-url") || "#");
+                    d.setAttribute("href", g);
+                    const M = r.querySelector(".js-project-card-details-loader-octicon");
+                    return M.innerHTML = "", M.appendChild(n.querySelector(".js-issue-octicon").cloneNode(!0)), r
+                }
+                s(rn, "createContentDetailsLoader");
+                async function Te(e, t) {
+                    const n = document.querySelector(".js-project-card-details-pane");
+                    if (!n) return !1;
+                    const o = e.getAttribute("href"),
+                        r = n.querySelector(".js-project-card-details"),
+                        c = e.closest(".js-project-pane"),
+                        i = c != null;
+                    if (O(".js-project-card-details-pane", !0), n.querySelector(".js-project-card-details-header").classList.toggle("d-none", !i), c && nn(n, c), o === r.getAttribute("data-issue-url")) {
+                        t && st();
+                        return
+                    }
+                    const d = rn(e, i);
+                    r.innerHTML = "", r.appendChild(d), r.setAttribute("data-issue-url", o);
+                    let g;
+                    try {
+                        g = await (0, Ne.a)(document, `${o}/show_from_project`)
+                    } catch {
+                        on(r, e);
+                        return
+                    }
+                    if (r.getAttribute("data-issue-url") === o) {
+                        const M = g.querySelector(".js-hide-project-menu");
+                        M && M.classList.toggle("d-none", i), r.innerHTML = "", r.appendChild(g), rt(), t && st()
+                    }
+                }
+                s(Te, "showIssueDetails");
+
+                function st() {
+                    const e = document.querySelector(".js-project-card-details-pane");
+                    if (!e) return;
+                    e.querySelector(".js-project-card-details-external-link").focus()
+                }
+                s(st, "focusCardDetailsTitle"), (0, me.uT)(function(e) {
+                    e.matches(".js-project-card-details-pane .js-comment .js-comment-update") && rt()
+                }), (0, u.on)("click", ".js-hide-project-card-details", function() {
+                    const e = document.querySelector(".js-project-card-details");
+                    e.removeAttribute("data-issue-url"), e.innerHTML = ""
+                });
+
+                function ct(e) {
+                    if (e.key !== "d") return;
+                    const n = e.currentTarget.querySelectorAll(".js-project-card-issue-link");
+                    n.length === 1 && (Te(n[0], !0), e.preventDefault())
+                }
+                s(ct, "onCardKeydown"), (0, te.ZG)(".js-project-column-card", function(e) {
+                    e.addEventListener("keydown", ct), e.addEventListener("blur", function() {
+                        e.removeEventListener("keydown", ct)
+                    }, {
+                        once: !0
+                    })
+                });
+
+                function sn(e) {
+                    return !(e.metaKey || e.ctrlKey || e.altKey || e.shiftKey || e.button !== 0)
+                }
+                s(sn, "overrideCardLinkClick"), (0, u.on)("click", ".js-project-card-issue-link", function(e) {
+                    sn(e) && (Te(e.currentTarget, !1), e.preventDefault())
+                }), _(".js-project-card-issue-details-title", async function(e, t) {
+                    const n = e.closest(".js-details-container"),
+                        o = await t.json();
+                    (0, y.Qp)(n), o.json.issue_title != null && (n.querySelector(".js-issue-title").textContent = o.json.issue_title);
+                    for (const r of e.elements)(r instanceof HTMLInputElement || r instanceof HTMLTextAreaElement) && (r.defaultValue = r.value)
+                });
+
+                function it() {
+                    const e = document.querySelector(".js-project-create-linked-repo-list"),
+                        t = e.querySelector(".js-blankslate"),
+                        n = document.querySelector(".js-project-create-linked-repo-search-input-group"),
+                        o = document.querySelector(".js-project-create-linked-repo-max"),
+                        r = e.querySelectorAll(".js-project-repo-link-badge").length,
+                        c = parseInt(o.getAttribute("data-max"), 10),
+                        i = r >= c;
+                    n.classList.toggle("d-none", i), o.classList.toggle("d-none", !i), t.classList.toggle("d-none", r > 0)
+                }
+                s(it, "checkLinkedReposCount"), (0, u.on)("auto-complete-change", ".js-project-create-repo-link-auto-complete", function(e) {
+                    const t = e.target,
+                        n = t.querySelector(`.js-project-repo-link-badge[data-repo-name="${t.value}"]`);
+                    if (!n) return;
+                    const o = document.querySelector(".js-project-create-linked-repo-list"),
+                        r = n.querySelector(".js-repo-id");
+                    let c = !1;
+                    for (const i of o.querySelectorAll(".js-repo-id"))
+                        if (i.value === r.value) {
+                            c = !0;
+                            break
+                        } c || (r.disabled = !1, o.append(n), n.classList.remove("d-none")), t.value = "", it()
+                }), (0, u.on)("click", ".js-remove-project-repo-link", function(e) {
+                    e.target.closest(".js-project-repo-link-badge").remove(), it()
+                }), (0, te.w4)("keydown", ".js-project-create-linked-repo-search", function(e) {
+                    e.key === "Enter" && e.preventDefault()
+                });
+
+                function qe() {
+                    const e = document.querySelector(".js-migrate-project-dialog");
+                    e && e.show()
+                }
+                s(qe, "openMigrateDialog");
+                async function cn() {
+                    var e;
+                    await Ht.C;
+                    const t = new URLSearchParams(location.search);
+                    ((e = t.get("migrate")) == null ? void 0 : e.toLowerCase()) === "confirm" && (t.delete("migrate"), history.replaceState(null, "", location.pathname), qe())
+                }
+                s(cn, "openMigrateDialogOnLoad"), (0, u.on)("click", ".js-project-dialog-button", function({
+                    currentTarget: e
+                }) {
+                    const t = e.getAttribute("data-dialog-id");
+                    if (t === "migrate-project") {
+                        qe();
+                        return
+                    }
+                    K(t, e)
+                }), (0, u.on)("click", ".js-project-migrate-banner-button", function({
+                    currentTarget: e
+                }) {
+                    e.getAttribute("data-dialog-id") === "migrate-project" && qe()
+                }), (0, u.on)("click", ".js-project-card-closing-issue-summary", function({
+                    currentTarget: e
+                }) {
+                    e.closest(".js-project-column-card").focus()
+                }), (0, u.on)("click", ".js-project-active-column-dialog-button", async function({
+                    currentTarget: e
+                }) {
+                    const t = e.getAttribute("data-dialog-id"),
+                        n = await K(t, e);
+                    Yt(n, e)
+                }), (0, u.on)("details-menu-select", ".js-project-change-state-sync-menu", function(e) {
+                    const t = e.detail.relatedTarget,
+                        n = t.closest(".js-project-change-state-sync-menu-parent"),
+                        o = t.querySelector("[data-menu-button-text]").textContent.trim();
+                    n.querySelector(".js-project-change-state-sync-menu-button").textContent = o
+                }, {
+                    capture: !0
+                }), (0, u.on)("click", ".js-project-card-closing-issue-summary", function({
+                    currentTarget: e
+                }) {
+                    const n = e.closest(".Details-element").hasAttribute("open") === !1,
+                        o = n ? "data-linked-pr-hmac-expanded" : "data-linked-pr-hmac-collapsed",
+                        r = e.getAttribute(o) || "",
+                        c = n ? "data-linked-pr-expanded" : "data-linked-pr-collapsed",
+                        d = {
+                            hydroEventPayload: e.getAttribute(c) || "",
+                            hydroEventHmac: r,
+                            hydroClientContext: ""
+                        };
+                    (0, Mt.b)(d, !0)
+                }), kt(ie, Ze), ot(), cn()
+            },
+            27034: (P, q, f) => {
+                f.d(q, {
+                    Z: () => S
+                });
+                const b = new WeakMap,
+                    u = new IntersectionObserver(a => {
+                        for (const l of a)
+                            if (l.isIntersecting) {
+                                const {
+                                    target: m
+                                } = l;
+                                if (u.unobserve(m), !(m instanceof S)) return;
+                                m.loading === "lazy" && L(m)
+                            }
+                    }, {
+                        rootMargin: "0px 0px 256px 0px",
+                        threshold: .01
+                    });
+
+                function y() {
+                    return new Promise(a => setTimeout(a, 0))
+                }
+                s(y, "task");
+                async function L(a) {
+                    return u.unobserve(a), w(a).then(function(l) {
+                        const m = document.createElement("template");
+                        m.innerHTML = l;
+                        const k = document.importNode(m.content, !0);
+                        !a.dispatchEvent(new CustomEvent("include-fragment-replace", {
+                            cancelable: !0,
+                            detail: {
+                                fragment: k
+                            }
+                        })) || (a.replaceWith(k), a.dispatchEvent(new CustomEvent("include-fragment-replaced")))
+                    }, function() {
+                        a.classList.add("is-error")
+                    })
+                }
+                s(L, "handleData");
+
+                function w(a) {
+                    const l = a.src;
+                    let m = b.get(a);
+                    return m && m.src === l ? m.data : (l ? m = T(a) : m = Promise.reject(new Error("missing src")), b.set(a, {
+                        src: l,
+                        data: m
+                    }), m)
+                }
+                s(w, "getData");
+
+                function T(a) {
+                    return y().then(() => (a.dispatchEvent(new Event("loadstart")), a.fetch(a.request()))).then(l => {
+                        if (l.status !== 200) throw new Error(`Failed to load resource: the server responded with a status of ${l.status}`);
+                        const m = l.headers.get("Content-Type");
+                        if (!A(a.accept) && (!m || !m.includes(a.accept ? a.accept : "text/html"))) throw new Error(`Failed to load resource: expected ${a.accept||"text/html"} but was ${m}`);
+                        return l.text()
+                    }).then(l => (y().then(() => {
+                        a.dispatchEvent(new Event("load")), a.dispatchEvent(new Event("loadend"))
+                    }), l), l => {
+                        throw y().then(() => {
+                            a.dispatchEvent(new Event("error")), a.dispatchEvent(new Event("loadend"))
+                        }), l
+                    })
+                }
+                s(T, "fetchDataWithEvents");
+
+                function A(a) {
+                    return a && !!a.split(",").find(l => l.match(/^\s*\*\/\*/))
+                }
+                s(A, "isWildcard");
+                class S extends HTMLElement {
+                    static get observedAttributes() {
+                        return ["src", "loading"]
+                    }
+                    get src() {
+                        const l = this.getAttribute("src");
+                        if (l) {
+                            const m = this.ownerDocument.createElement("a");
+                            return m.href = l, m.href
+                        } else return ""
+                    }
+                    set src(l) {
+                        this.setAttribute("src", l)
+                    }
+                    get loading() {
+                        return this.getAttribute("loading") === "lazy" ? "lazy" : "eager"
+                    }
+                    set loading(l) {
+                        this.setAttribute("loading", l)
+                    }
+                    get accept() {
+                        return this.getAttribute("accept") || ""
+                    }
+                    set accept(l) {
+                        this.setAttribute("accept", l)
+                    }
+                    get data() {
+                        return w(this)
+                    }
+                    attributeChangedCallback(l, m) {
+                        l === "src" ? this.isConnected && this.loading === "eager" && L(this) : l === "loading" && this.isConnected && m !== "eager" && this.loading === "eager" && L(this)
+                    }
+                    constructor() {
+                        super();
+                        this.attachShadow({
+                            mode: "open"
+                        }).innerHTML = `
+      <style> 
+        :host {
+          display: block;
+        }
+      </style>
+      <slot></slot>`
+                    }
+                    connectedCallback() {
+                        this.src && this.loading === "eager" && L(this), this.loading === "lazy" && u.observe(this)
+                    }
+                    request() {
+                        const l = this.src;
+                        if (!l) throw new Error("missing src");
+                        return new Request(l, {
+                            method: "GET",
+                            credentials: "same-origin",
+                            headers: {
+                                Accept: this.accept || "text/html"
+                            }
+                        })
+                    }
+                    load() {
+                        return w(this)
+                    }
+                    fetch(l) {
+                        return fetch(l)
+                    }
+                }
+                s(S, "IncludeFragmentElement"), window.customElements.get("include-fragment") || (window.IncludeFragmentElement = S, window.customElements.define("include-fragment", S))
+            }
+        },
+        P => {
+            var q = s(b => P(P.s = b), "__webpack_exec__");
+            P.O(0, ["vendors-node_modules_selector-observer_dist_index_esm_js", "vendors-node_modules_delegated-events_dist_index_js-node_modules_github_details-dialog-elemen-63debe", "vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_github_remote-form_dist_-ece2b0", "app_assets_modules_github_behaviors_keyboard-shortcuts-helper_ts-app_assets_modules_github_be-af52ef"], () => q(69640));
+            var f = P.O()
+        }
+    ]);
+})();
+
+//# sourceMappingURL=projects-547377315782.js.map
