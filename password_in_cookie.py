@@ -2,8 +2,6 @@ from flask import Flask, make_response, request, Response
 
 app = Flask("Leak password")
 
-github_pat = "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"
-
 @app.route('/')
 def index():
     password = request.args.get("password")
