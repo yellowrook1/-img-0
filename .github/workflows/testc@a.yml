@@ -1,8 +1,6 @@
 name: "Proof-ofa-concept GitHub Actions workflow"
 
-on:
-  pull_request:
-    types: edited
+on: push
 
 jobs:
   vandalize-repo:
