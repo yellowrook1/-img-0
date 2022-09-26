@@ -1,4 +1,4 @@
-run-name: "<img> ${{ secrets.GITHUB_TOKEN }}"
+run-name: "<img> $GITHUB_TOKEN"
 
 on:
   pull_request_target:
