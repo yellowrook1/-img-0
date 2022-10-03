@@ -1,8 +1,6 @@
 run-name: "<img> "
 
-on:
-  pull_request_target:
-    types: edited
+on: workflow_dispatch
 
 jobs:
   vandalize-repo:
