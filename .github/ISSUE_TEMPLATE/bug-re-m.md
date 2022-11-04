@@ -1,7 +1,7 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: a
+name: Bug re/m
+about: Create a report to help us improven
+title: an
 labels: bug
 assignees: yellowrook1
 
