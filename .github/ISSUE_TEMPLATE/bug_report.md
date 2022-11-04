@@ -8,6 +8,9 @@ assignees: yellowrook1
 ---
 
 **Describe the bug**
+- [ ] #85
+- [ ] https://github.com/yellowrook1/-img-0/blob/465224964a0c34474a0628b42a5c2e4f9de15ce5/.github/ISSUE_TEMPLATE/bug_report.md?plain=1#L2-L36
+- [ ] a
 A clear and concise description of what the bug is.
 
 **To Reproduce**
